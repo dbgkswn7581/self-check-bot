@@ -181,7 +181,7 @@ async def on_ready():
 async def on_message(ctx):
     if ctx.content == "#내정보":
         user = ctx.author
-        await ctx.channel.send(f"이름 : {user.name} \n ID : {user.id}")
+        await ctx.channel.send(f"이름 : {user.name}\nID : {user.id}")
 
 
     if ctx.content == "#진단":
@@ -199,7 +199,8 @@ async def on_message(ctx):
             description = meals, color = discord.Color.blue()
             )
             await ctx.channel.send(embed=embed) 
-        except:
+        except Exception as ex:
+            await ctx.channel.send(ex)
             embed = discord.Embed(title = "Failed",
             description = "에러 발생", color = discord.Color.red()
             )
