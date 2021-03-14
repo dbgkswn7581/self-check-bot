@@ -211,7 +211,7 @@ async def on_message(ctx):
             await ctx.channel.send(embed=embed)
 
             url = "https://hcs.eduro.go.kr/#/loginHome"
-            soup = BeautifulSoup(urllib.request.urlopen(url), 'html.parser')
+            soup = BeautifulSoup(urllib.request.urlopen(url).read(), 'html.parser')
             meals = soup.select_one('body > app-root > div > div.secondary_pw > div > h2 > span').get_text()
 
             embed = discord.Embed(title = "Success",
