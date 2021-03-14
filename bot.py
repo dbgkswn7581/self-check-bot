@@ -11,6 +11,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import ElementNotVisibleException
 
 #한국 표준 시간으로 변경하기 (호스팅 시에만 필요함)
 def get_time():
@@ -395,8 +399,28 @@ async def on_message(ctx):
                 await ctx.channel.send(ex)
                 await ctx.channel.send(nurl)
             try:
-                stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                driver.execute_script("arguments[0].click();", stbtn1)
+
+                WebDriverWait(driver, 30).until(
+                    expected_conditions.invisibility_of_element(
+                        (By.XPATH, '//*[@id="btnConfirm"]')
+                    )
+                )
+            
+            except ElementNotVisibleException:
+                try:
+                    stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
+                    driver.execute_script("arguments[0].click();", stbtn1)
+                except Exception as ext:
+                    nowurrl = driver.page_source
+                    sosoup = BeautifulSoup(nowurrl, 'html.parser')
+                    meeal = sosoup.select_one('#container > div > div.contents > div > div.guid_contents > ul > li').get_text()
+                    embed = discord.Embed(title = "Failed",
+                    description = meeal, color = discord.Color.red()
+                    )
+                    nurrl = driver.current_url
+                    await ctx.channel.send(embed=embed)
+                    await ctx.channel.send(ext)
+                    await ctx.channel.send(nurrl)
 
             except Exception as ex:
                 nowurl = driver.page_source
