@@ -398,31 +398,11 @@ async def on_message(ctx):
                 await ctx.channel.send(embed=embed)
                 await ctx.channel.send(ex)
                 await ctx.channel.send(nurl)
+            
             try:
-
-                WebDriverWait(driver, 30).until(
-                    expected_conditions.invisibility_of_element(
-                        (By.XPATH, '//*[@id="btnConfirm"]')
-                    )
-                )
                 stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                driver.execute_script("arguments[0].click();", stbtn1)
-
-            except ElementNotVisibleException:
-                try:
-                    stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                    driver.execute_script("arguments[0].click();", stbtn1)
-                except Exception as ext:
-                    nowurrl = driver.page_source
-                    sosoup = BeautifulSoup(nowurrl, 'html.parser')
-                    meeal = sosoup.select_one('#container > div > div.contents > div > div.guid_contents > ul > li').get_text()
-                    embed = discord.Embed(title = "Failed",
-                    description = meeal, color = discord.Color.red()
-                    )
-                    nurrl = driver.current_url
-                    await ctx.channel.send(embed=embed)
-                    await ctx.channel.send(ext)
-                    await ctx.channel.send(nurrl)
+                stbtn1.submit()
+                # driver.execute_script("arguments[0].click();", stbtn1)
 
             except Exception as ex:
                 nowurl = driver.page_source
