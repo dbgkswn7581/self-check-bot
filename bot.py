@@ -411,19 +411,21 @@ async def on_message(ctx):
 
         # ===================================BeautifulSoup==========================================
 
-        req = driver.page_source
-        soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
-        meals = soup.select_one('#survey_q1').get_text()
+        try:
+            req = driver.page_source
+            soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
+            meals = soup.select_one('#survey_q1').get_text()
 
-        embed = discord.Embed(title = "Success",
-        description = meals, color = discord.Color.blue()
-        )
-        await ctx.channel.send(embed=embed) 
+            embed = discord.Embed(title = "Success",
+            description = meals, color = discord.Color.blue()
+            )
+            await ctx.channel.send(embed=embed) 
 
 
         except Exception as ex:
+            
             embed = discord.Embed(title = "Failed",
-            description = "에러 발생", color = discord.Color.red()
+            description = "#BeatifulSoup", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
