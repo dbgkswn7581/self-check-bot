@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import sys
+import traceback
 import os
 import time
 from bs4 import BeautifulSoup
@@ -208,6 +210,7 @@ async def on_message(ctx):
             await ctx.channel.send(embed=embed) 
         except Exception as ex:
             await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
             embed = discord.Embed(title = "Failed",
             description = "에러 발생", color = discord.Color.red()
             )
