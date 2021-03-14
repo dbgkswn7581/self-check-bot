@@ -396,7 +396,8 @@ async def on_message(ctx):
                 await ctx.channel.send(nurl)
             try:
                 stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                stbtn1.click()
+                driver.execute_script("arguments[0].click();", stbtn1)
+
             except Exception as ex:
                 nowurl = driver.page_source
                 sosoup = BeautifulSoup(nowurl, 'html.parser')
