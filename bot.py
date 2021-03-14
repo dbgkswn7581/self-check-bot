@@ -232,8 +232,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             # 시/도 선택 버튼             
@@ -244,8 +242,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             # 전라북도 버튼
@@ -256,8 +252,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             #학교급 선택 버튼
@@ -268,8 +262,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             #고등학교 버튼
@@ -280,8 +272,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             # 학교 이름 선택 버튼
@@ -295,8 +285,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         time.sleep(0.5)
 
@@ -309,8 +297,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             #학교선택 버튼 클릭
@@ -321,8 +307,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
 
         try:
             #이름 입력 칸 클릭
@@ -335,8 +319,7 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
         
         try:
             #생년월일 입력 칸 클릭
@@ -349,8 +332,7 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
 
         try:
             #생년월일 이후 확인 버튼
@@ -361,15 +343,14 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
 
         time.sleep(1)
 
         try:
             #비번 입력 칸
             inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
-            inputpsd.click()
+            # inputpsd.click()
             inputpsd.send_keys('6213')
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
@@ -377,8 +358,7 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
         
         try:
             #비번 이후 확인 버튼
@@ -389,8 +369,7 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
 
         time.sleep(2)
         
@@ -403,8 +382,7 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
-            await ctx.channel.send(sys.exc_info()[0])
+
 
         time.sleep(2)
 
@@ -423,13 +401,11 @@ async def on_message(ctx):
 
 
         except Exception as ex:
-            
             embed = discord.Embed(title = "Failed",
             description = "#BeatifulSoup", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(traceback.format_exc)
 
 
 
