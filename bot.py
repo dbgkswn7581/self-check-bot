@@ -355,7 +355,8 @@ async def on_message(ctx):
             #비번 입력 칸
             inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
             # inputpsd.click()
-            inputpsd.send_keys('6213\n')
+            inputpsd.send_keys('6213')
+            inputpsd.send_keys(Keys.ENTER)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
@@ -367,23 +368,26 @@ async def on_message(ctx):
             await ctx.channel.send(nurl)
 
         
-        # try:
-        #     #비번 이후 확인 버튼
-        #     psdbtn = driver.find_element_by_xpath('/html/body/app-root/div/div[1]/div[2]/div/div[2]/div/input')
-        #     psdbtn.click()
-        # except Exception as ex:
-        #     embed = discord.Embed(title = "Failed",
-        #     description = "#비번 이후 확인 버튼", color = discord.Color.red()
-        #     )
-        #     await ctx.channel.send(embed=embed)
-        #     await ctx.channel.send(ex)
+        try:
+            #비번 이후 확인 버튼
+            psdbtn = driver.find_element_by_css_selector(
+                "#btnConfirm"
+            )
+            psdbtn.click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#비번 이후 확인 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
 
         time.sleep(5)
 
         try:
             #자가진단 버튼
-            stbtn = driver.find_element_by_xpath('/html/body/app-root/div/div[1]/div[2]/div/section[2]/div[2]/ul/li/a/em')
-            stbtn.click()
+            driver.find_element_by_css_selector(
+                '#container > div > section.memberWrap > div:nth-child(2) > ul > li > a > em'
+            ).click()
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
