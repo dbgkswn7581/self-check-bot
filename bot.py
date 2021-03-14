@@ -421,8 +421,8 @@ async def on_message(ctx):
             driver.find_element_by_xpath(
                 '//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em'
             ).click()
-            send_email(driver)
-            time.sleep(1)
+            # send_email(driver)
+            # time.sleep(1)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
