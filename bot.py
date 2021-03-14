@@ -182,25 +182,7 @@ async def on_message(ctx):
     if ctx.content == "#내정보":
         user = ctx.author
         await ctx.channel.send(f"{user.name} / {user.id}")
-    
-    # if ctx.content == "#진단":
-    #     try:
-    #         a = self_check()
-    #         if a[:2] == "1.":
-    #             embed = discord.Embed(title = "Success",
-    #             description = "자가진단 예/아니요 페이지 진입 성공", color = discord.Color.blue()
-    #             )
-    #             await ctx.send(embed=embed)
 
-    #         else:
-    #             print(a[:2])
-    #             print(a)
-    #             await ctx.channel.send(a)
-    #     except:
-    #         embed = discord.Embed(title = "Failed",
-    #         description = "에러 발생", color = discord.Color.red()
-    #         )
-    #         await ctx.channel.send(embed=embed)
 
     if ctx.content == "#진단":
 
@@ -210,9 +192,8 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
 
-            url = "https://hcs.eduro.go.kr/#/loginHome"
-            soup = BeautifulSoup(urllib.request.urlopen(url).read(), 'html.parser')
-            meals = soup.select_one('body > app-root > div > div.secondary_pw > div > h2 > span').get_text()
+
+            meals = self_check()
 
             embed = discord.Embed(title = "Success",
             description = meals, color = discord.Color.blue()
@@ -224,7 +205,6 @@ async def on_message(ctx):
             )
             await ctx.channel.send(embed=embed)
 
-            
 
 
 client.run(os.environ['token'])
