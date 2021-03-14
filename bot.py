@@ -370,7 +370,8 @@ async def on_message(ctx):
         try:
             #비번 이후 확인 버튼
             psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]')
-            psdbtn.send_keys(Keys.ENTER)
+            # psdbtn.send_keys(Keys.ENTER)
+            psdbtn.submit()
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
@@ -378,45 +379,21 @@ async def on_message(ctx):
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
 
+        time.sleep(5)
 
-        
-        
         try:
             #자가진단 버튼
-            stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-            stbtn.send_keys(Keys.ENTER)
-        except:
-            try:
-                psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]')
-                psdbtn.send_keys(Keys.ENTER)
-                time.sleep(3)
-            except Exception as ex:
-                embed = discord.Embed(title = "Failed",
-                description = "#자가진단 버튼1111111", color = discord.Color.red()
-                )
-                nurl = driver.current_url
-                await ctx.channel.send(embed=embed)
-                await ctx.channel.send(ex)
-                await ctx.channel.send(nurl)
-            
-            try:
-                stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                stbtn1.submit()
-                # driver.execute_script("arguments[0].click();", stbtn1)
+            stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em')
+            stbtn.click()
 
-            except Exception as ex:
-                nowurl = driver.page_source
-                sosoup = BeautifulSoup(nowurl, 'html.parser')
-                meeal = sosoup.select_one('#container > div > div.contents > div > div.guid_contents > ul > li').get_text()
-                embed = discord.Embed(title = "Failed",
-                description = meeal, color = discord.Color.red()
-                )
-                nurl = driver.current_url
-                await ctx.channel.send(embed=embed)
-                await ctx.channel.send(ex)
-                await ctx.channel.send(nurl)
-            
-
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#자가진단 버튼", color = discord.Color.red()
+            )
+            nurl = driver.current_url
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(nurl)       
 
         time.sleep(2)
 
