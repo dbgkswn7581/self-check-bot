@@ -192,29 +192,243 @@ async def on_message(ctx):
         user = ctx.author
         await ctx.channel.send(f"이름 : {user.name}\nID : {user.id}")
 
+    # ===================================Selenium==========================================
 
     if ctx.content == "#진단":
+        embed = discord.Embed(title = "실행 중...",
+        description = "~ing...", color = discord.Color.green()
+        )
+        await ctx.channel.send(embed=embed)
+
+
+        url = "https://hcs.eduro.go.kr/#/loginHome"
+
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        
+        driver.get(url)
+
+        driver.find_element_by_xpath('//*[@id="btnConfirm2"]').click() #시작화면에서 시작 버튼 클릭
+
+        time.sleep(1)
+
+
+        # driver.execute_script("arguments[0].removeAttribute('readonly', 'readonly')", ele)
+        # ele.clear()
+        # ele.click()
 
         try:
-            embed = discord.Embed(title = "실행 중...",
-            description = "~ing...", color = discord.Color.green()
+            # 학교 검색 버튼
+            ele = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr[1]/td/button')
+            ele.send_keys(Keys.ENTER)
+            time.sleep(0.35)
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "# 학교 검색 버튼", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
-
-
-            meals = self_check()
-
-            embed = discord.Embed(title = "Success",
-            description = meals, color = discord.Color.blue()
-            )
-            await ctx.channel.send(embed=embed) 
-        except Exception as ex:
             await ctx.channel.send(ex)
             await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            # 시/도 선택 버튼             
+            driver.find_element_by_xpath('//*[@id="sidolabel"]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "# 시/도 선택 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            # 전라북도 버튼
+            driver.find_element_by_xpath('//*[@id="sidolabel"]/option[14]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "# 전라북도 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            #학교급 선택 버튼
+            driver.find_element_by_xpath('//*[@id="crseScCode"]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#학교급 선택 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            #고등학교 버튼
+            driver.find_element_by_xpath('//*[@id="crseScCode"]/option[5]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#고등학교 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            # 학교 이름 선택 버튼
+            schname = driver.find_element_by_xpath('//*[@id="orgname"]') 
+            schname.click()
+            schname.send_keys("전라고등학교")
+            schname.send_keys(Keys.RETURN)
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "# 학교 이름 선택 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        time.sleep(0.5)
+
+        try:
+            #학교 선택
+            driver.find_element_by_xpath('//*[@id="softBoardListLayer"]/div[2]/div[1]/ul/li/a/span').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#학교 선택", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            #학교선택 버튼 클릭
+            driver.find_element_by_xpath('//*[@id="softBoardListLayer"]/div[2]/div[2]/input').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#학교선택 버튼 클릭", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            #이름 입력 칸 클릭
+            inputname = driver.find_element_by_xpath('//*[@id="user_name_input"]') 
+            inputname.click()
+            inputname.send_keys("유한주")
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#이름 입력 칸 클릭", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+        
+        try:
+            #생년월일 입력 칸 클릭
+            inputdate = driver.find_element_by_xpath('//*[@id="birthday_input"]') 
+            inputdate.click()
+            inputdate.send_keys("031210")
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#생년월일 입력 칸 클릭", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        try:
+            #생년월일 이후 확인 버튼
+            driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#생년월일 이후 확인 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        time.sleep(1)
+
+        try:
+            #비번 입력 칸
+            inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
+            inputpsd.click()
+            inputpsd.send_keys('6213')
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#비번 입력 칸", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+        
+        try:
+            #비번 이후 확인 버튼
+            driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#비번 이후 확인 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        time.sleep(2)
+        
+        try:
+            #자가진단 버튼
+            driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#자가진단 버튼", color = discord.Color.red()
+            )
+            await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+            await ctx.channel.send(sys.exc_info()[0])
+
+        time.sleep(2)
+
+
+        # ===================================BeautifulSoup==========================================
+
+        req = driver.page_source
+        soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
+        meals = soup.select_one('#survey_q1').get_text()
+
+        embed = discord.Embed(title = "Success",
+        description = meals, color = discord.Color.blue()
+        )
+        await ctx.channel.send(embed=embed) 
+
+
+        except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "에러 발생", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
+            await ctx.channel.send(ex)
+            await ctx.channel.send(traceback.format_exc)
+
 
 
 
