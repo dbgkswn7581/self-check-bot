@@ -15,6 +15,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import ElementNotVisibleException
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
+
+
+
+출처: https://yeolco.tistory.com/93 [열코의 프로그래밍 일기]
 
 #한국 표준 시간으로 변경하기 (호스팅 시에만 필요함)
 def get_time():
@@ -387,9 +395,38 @@ async def on_message(ctx):
             #자가진단 버튼
             driver.find_element_by_css_selector(
                 '#container > div > section.memberWrap > div:nth-child(2) > ul > li > a > em'
-            ).send_keys(Keys.ENTER)
+            ).click()
 
         except Exception as ex:
+            
+            try:
+                driver.save_screenshot("Screenshot.png")
+
+                s = smtplib.SMTP('smtp.gmail.com', 587)
+                s.starttls()
+                s.login('dbgkswn7581@gmail.com', 'szxrergdlwfbifbg')
+
+                msg = MIMEBase('multipart', 'mixed')
+                cont = MIMEText("내용 : 본문내용")
+                cont['Subject'] = '제목 : 메일 보내기 테스트'
+                msg.attach(cont)
+
+                path = r'Screenshot.png'
+                part = MIMEBase("application", "octet-stream")
+                part.set_payload(open(path, 'rb').read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition',
+                        'attachment; filename="%s"' % os.path.basename(path))
+                msg.attach(part)
+                
+                s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
+                s.quit()
+            except Exception as exwr:
+                embed = discord.Embed(title = "Failed",
+                description = "#이메일 전송", color = discord.Color.red()
+                )
+                await ctx.channel.send(exwr)
+
             embed = discord.Embed(title = "Failed",
             description = "#자가진단 버튼", color = discord.Color.red()
             )
