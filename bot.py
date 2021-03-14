@@ -357,8 +357,10 @@ async def on_message(ctx):
             embed = discord.Embed(title = "Failed",
             description = "#비번 입력 칸", color = discord.Color.red()
             )
+            nurl = driver.current_url
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
+            await ctx.channel.send(nurl)
 
         
         # try:
@@ -381,8 +383,10 @@ async def on_message(ctx):
             embed = discord.Embed(title = "Failed",
             description = "#자가진단 버튼", color = discord.Color.red()
             )
+            nurl = driver.current_url
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
+            await ctx.channel.send(nurl)
 
 
         time.sleep(2)
