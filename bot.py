@@ -352,6 +352,7 @@ async def on_message(ctx):
             inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
             # inputpsd.click()
             inputpsd.send_keys('6213')
+            inputpsd.send_keys(Keys.ENTER)
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#비번 입력 칸", color = discord.Color.red()
@@ -360,15 +361,15 @@ async def on_message(ctx):
             await ctx.channel.send(ex)
 
         
-        try:
-            #비번 이후 확인 버튼
-            driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-        except Exception as ex:
-            embed = discord.Embed(title = "Failed",
-            description = "#비번 이후 확인 버튼", color = discord.Color.red()
-            )
-            await ctx.channel.send(embed=embed)
-            await ctx.channel.send(ex)
+        # try:
+        #     #비번 이후 확인 버튼
+        #     driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        # except Exception as ex:
+        #     embed = discord.Embed(title = "Failed",
+        #     description = "#비번 이후 확인 버튼", color = discord.Color.red()
+        #     )
+        #     await ctx.channel.send(embed=embed)
+        #     await ctx.channel.send(ex)
 
 
         time.sleep(2)
