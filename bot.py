@@ -390,8 +390,6 @@ async def on_message(ctx):
             inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
             inputpsd.click()
             inputpsd.send_keys("6213" + Keys.ENTER)
-            send_email(driver)
-            time.sleep(1)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
