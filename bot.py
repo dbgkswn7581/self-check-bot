@@ -361,7 +361,6 @@ async def on_message(ctx):
         try:
             #비번 입력 칸
             inputpsd = driver.find_element_by_css_selector('#WriteInfoForm > table > tbody > tr > td > input')
-            # inputpsd.click()
             inputpsd.send_keys(6213)
 
         except Exception as ex:
@@ -381,11 +380,38 @@ async def on_message(ctx):
             )
             psdbtn.send_keys(Keys.ENTER)
         except Exception as ex:
+            try:
+                #비번 입력 칸
+                inputpsd = driver.find_element_by_css_selector('#WriteInfoForm > table > tbody > tr > td > input')
+                inputpsd.send_keys(6213)
+
+            except Exception as ex:
+                embed = discord.Embed(title = "Failed",
+                description = "#비번 입력 칸", color = discord.Color.red()
+                )
+                nurl = driver.current_url
+                await ctx.channel.send(embed=embed)
+                await ctx.channel.send(ex)
+                await ctx.channel.send(nurl)
+                
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
+
+            try:
+                #비번 이후 확인 버튼
+                psdbtn = driver.find_element_by_css_selector(
+                    "#btnConfirm"
+                )
+                psdbtn.send_keys(Keys.ENTER)
+            except Exception as eswq:
+                embed = discord.Embed(title = "Failed",
+                description = "#비번 이후 확인 버튼", color = discord.Color.red()
+                )
+                await ctx.channel.send(embed=embed)
+                await ctx.channel.send(eswq)
 
         time.sleep(5)
 
