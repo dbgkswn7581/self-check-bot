@@ -172,7 +172,34 @@ def self_check():
 
     time.sleep(2)
 
+def send_email(driver):
+    driver.save_screenshot("Screenshot.png")
 
+    # txt = driver.page_source
+    # f = open('source.txt', 'w', encoding="UTF-8")
+    # f.write(txt)
+    # f.close()             
+
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login('dbgkswn7581@gmail.com', 'szxrergdlwfbifbg')
+
+    msg = MIMEBase('multipart', 'mixed')
+    cont = MIMEText("내용 : 본문내용")
+    cont['Subject'] = '제목 : 메일 보내기 테스트'
+    msg.attach(cont)
+
+    path = r'Screenshot.png'
+    part = MIMEBase("application", "octet-stream")
+    part.set_payload(open(path, 'rb').read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition',
+            'attachment; filename="%s"' % os.path.basename(path))
+    msg.attach(part)
+
+
+    s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
+    s.quit()
     # ===================================BeautifulSoup==========================================
 
     req = driver.page_source
@@ -361,7 +388,8 @@ async def on_message(ctx):
         try:
             #비번 입력 칸
             inputpsd = driver.find_element_by_css_selector('#WriteInfoForm > table > tbody > tr > td > input')
-            inputpsd.send_keys(6213)
+            inputpsd.send_keys(int(6213))
+            send_email(driver)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
@@ -379,39 +407,13 @@ async def on_message(ctx):
                 "#btnConfirm"
             )
             psdbtn.send_keys(Keys.ENTER)
-        except Exception as ex:
-            try:
-                #비번 입력 칸
-                inputpsd = driver.find_element_by_css_selector('#WriteInfoForm > table > tbody > tr > td > input')
-                inputpsd.send_keys(6213)
-
-            except Exception as ex:
-                embed = discord.Embed(title = "Failed",
-                description = "#비번 입력 칸", color = discord.Color.red()
-                )
-                nurl = driver.current_url
-                await ctx.channel.send(embed=embed)
-                await ctx.channel.send(ex)
-                await ctx.channel.send(nurl)
-                
+            send_email(driver)
+        except Exception as ex:            
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-
-            try:
-                #비번 이후 확인 버튼
-                psdbtn = driver.find_element_by_css_selector(
-                    "#btnConfirm"
-                )
-                psdbtn.send_keys(Keys.ENTER)
-            except Exception as eswq:
-                embed = discord.Embed(title = "Failed",
-                description = "#비번 이후 확인 버튼", color = discord.Color.red()
-                )
-                await ctx.channel.send(embed=embed)
-                await ctx.channel.send(eswq)
 
         time.sleep(5)
 
@@ -420,43 +422,9 @@ async def on_message(ctx):
             driver.find_element_by_css_selector(
                 '#container > div > section.memberWrap > div:nth-child(2) > ul > li > a > em'
             ).click()
+            send_email(driver)
 
         except Exception as ex:
-            
-            try:
-                driver.save_screenshot("Screenshot.png")
-
-                # txt = driver.page_source
-                # f = open('source.txt', 'w', encoding="UTF-8")
-                # f.write(txt)
-                # f.close()             
-
-                s = smtplib.SMTP('smtp.gmail.com', 587)
-                s.starttls()
-                s.login('dbgkswn7581@gmail.com', 'szxrergdlwfbifbg')
-
-                msg = MIMEBase('multipart', 'mixed')
-                cont = MIMEText("내용 : 본문내용")
-                cont['Subject'] = '제목 : 메일 보내기 테스트'
-                msg.attach(cont)
-
-                path = r'Screenshot.png'
-                part = MIMEBase("application", "octet-stream")
-                part.set_payload(open(path, 'rb').read())
-                encoders.encode_base64(part)
-                part.add_header('Content-Disposition',
-                        'attachment; filename="%s"' % os.path.basename(path))
-                msg.attach(part)
-
-
-                s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
-                s.quit()
-            except Exception as exwr:
-                embed = discord.Embed(title = "Failed",
-                description = "#이메일 전송", color = discord.Color.red()
-                )
-                await ctx.channel.send(exwr)
-
             embed = discord.Embed(title = "Failed",
             description = "#자가진단 버튼", color = discord.Color.red()
             )
