@@ -379,12 +379,14 @@ async def on_message(ctx):
         
         try:
             #자가진단 버튼
-            driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
+            stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em')
+            stbtn.send_keys(Keys.ENTER)
         except:
             try:
                 psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
                 time.sleep(3)
-                driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
+                stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em')
+                stbtn.send_keys(Keys.ENTER)
             except Exception as ex:
                 embed = discord.Embed(title = "Failed",
                 description = "#자가진단 버튼", color = discord.Color.red()
