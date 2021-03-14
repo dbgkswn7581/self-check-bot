@@ -448,6 +448,7 @@ async def on_message(ctx):
 
 
         except Exception as ex:
+            send_email(driver)
             embed = discord.Embed(title = "Failed",
             description = "#BeatifulSoup", color = discord.Color.red()
             )
