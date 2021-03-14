@@ -196,7 +196,7 @@ async def on_message(ctx):
 
     if ctx.content == "#진단":
         embed = discord.Embed(title = "실행 중...",
-        description = "~ing...", color = discord.Color.green()
+        color = discord.Color.green()
         )
         await ctx.channel.send(embed=embed)
 
@@ -375,19 +375,24 @@ async def on_message(ctx):
             await ctx.channel.send(ex)
 
 
-        time.sleep(2)
+        
         
         try:
             #자가진단 버튼
             driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
-        except Exception as ex:
-            embed = discord.Embed(title = "Failed",
-            description = "#자가진단 버튼", color = discord.Color.red()
-            )
-            nurl = driver.current_url
-            await ctx.channel.send(embed=embed)
-            await ctx.channel.send(ex)
-            await ctx.channel.send(nurl)
+        except:
+            try:
+                psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+                time.sleep(3)
+                driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
+            except Exception as ex:
+                embed = discord.Embed(title = "Failed",
+                description = "#자가진단 버튼", color = discord.Color.red()
+                )
+                nurl = driver.current_url
+                await ctx.channel.send(embed=embed)
+                await ctx.channel.send(ex)
+                await ctx.channel.send(nurl)
 
 
         time.sleep(2)
