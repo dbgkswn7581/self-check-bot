@@ -369,7 +369,7 @@ async def on_message(ctx):
         
         try:
             #비번 이후 확인 버튼
-            psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]')
+            psdbtn = driver.find_element_by_xpath('/html/body/app-root/div/div[1]/div[2]/div/div[2]/div/input')
             # psdbtn.send_keys(Keys.ENTER)
             psdbtn.submit()
         except Exception as ex:
@@ -383,7 +383,7 @@ async def on_message(ctx):
 
         try:
             #자가진단 버튼
-            stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em')
+            stbtn = driver.find_element_by_xpath('/html/body/app-root/div/div[1]/div[2]/div/section[2]/div[2]/ul/li/a/em')
             stbtn.click()
 
         except Exception as ex:
