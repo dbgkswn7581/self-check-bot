@@ -116,11 +116,12 @@ def self_check():
     time.sleep(1)
 
 
-    # 학교 검색 버튼 
-    ele = driver.find_element_by_xpath('//*[@id="schul_name_input"]')
-    driver.execute_script("arguments[0].removeAttribute('readonly', 'readonly')", ele)
-    ele.clear()
-    ele.click()
+    # 학교 검색 버튼
+    ele = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr[1]/td/button')
+    # driver.execute_script("arguments[0].removeAttribute('readonly', 'readonly')", ele)
+    # ele.clear()
+    # ele.click()
+    ele.send_keys(Keys.ENTER)
     time.sleep(0.35)
     driver.find_element_by_xpath('//*[@id="sidolabel"]').click() # 시/도 선택 버튼
     driver.find_element_by_xpath('//*[@id="sidolabel"]/option[14]').click() # 전라북도 버튼
