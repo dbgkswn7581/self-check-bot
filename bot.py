@@ -415,7 +415,7 @@ async def on_message(ctx):
                 cont['Subject'] = '제목 : 메일 보내기 테스트'
                 msg.attach(cont)
 
-                path = r'Screenshot.png'
+                path = r'source.txt'
                 part = MIMEBase("application", "octet-stream")
                 part.set_payload(open(path, 'rb').read())
                 encoders.encode_base64(part)
@@ -423,13 +423,13 @@ async def on_message(ctx):
                         'attachment; filename="%s"' % os.path.basename(path))
                 msg.attach(part)
 
-                patha = r'source.txt'
-                patha = MIMEBase("application", "octet-stream")
-                patha.set_payload(open(patha, 'rb').read())
-                encoders.encode_base64(patha)
-                patha.add_header('Content-Disposition',
-                        'attachment; filename="%s"' % os.path.basename(patha))
-                msg.attach(part)
+                # patha = r'source.txt'
+                # patha = MIMEBase("application", "octet-stream")
+                # patha.set_payload(open(patha, 'rb').read())
+                # encoders.encode_base64(patha)
+                # patha.add_header('Content-Disposition',
+                #         'attachment; filename="%s"' % os.path.basename(patha))
+                # msg.attach(part)
 
                 s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
                 s.quit()
