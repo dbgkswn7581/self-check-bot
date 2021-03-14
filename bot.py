@@ -183,24 +183,40 @@ async def on_message(ctx):
         user = ctx.author
         await ctx.channel.send(f"{user.name} / {user.id}")
     
+    # if ctx.content == "#진단":
+    #     try:
+    #         a = self_check()
+    #         if a[:2] == "1.":
+    #             embed = discord.Embed(title = "Success",
+    #             description = "자가진단 예/아니요 페이지 진입 성공", color = discord.Color.blue()
+    #             )
+    #             await ctx.send(embed=embed)
+
+    #         else:
+    #             print(a[:2])
+    #             print(a)
+    #             await ctx.channel.send(a)
+    #     except:
+    #         embed = discord.Embed(title = "Failed",
+    #         description = "에러 발생", color = discord.Color.red()
+    #         )
+    #         await ctx.send(embed=embed)
+
     if ctx.content == "#진단":
         try:
-            a = self_check()
-            if a[:2] == "1.":
-                embed = discord.Embed(title = "Success",
-                description = "자가진단 예/아니요 페이지 진입 성공", color = discord.Color.blue()
-                )
-                await ctx.send(embed=embed)
-
-            else:
-                print(a[:2])
-                print(a)
-                await ctx.channel.send(a)
+            url = "https://hcs.eduro.go.kr/#/loginHome"
+            soup = BeautifulSoup(url, 'html.parser')
+            meals = soup.select_one('body > app-root > div > div.secondary_pw > div > strong').get_text()
+            embed = discord.Embed(title = "Success",
+            description = meals, color = discord.Color.blue()
+            )
+            await ctx.send(embed=embed)
         except:
             embed = discord.Embed(title = "Failed",
             description = "에러 발생", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
+
             
 
 
