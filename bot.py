@@ -437,12 +437,13 @@ async def on_message(ctx):
         # ===================================BeautifulSoup==========================================
 
         try:
-            req = driver.page_source
-            soup = BeautifulSoup(req, 'html.parser')
-            meals = soup.select_one('#container > div > div.contents > div:nth-child(2) > div.guid_contents > ul > li:nth-child(1)').get_text()
+            driver.find_element_by_xpath('//*[@id="survey_q1a1"]').click()
+            driver.find_element_by_xpath('//*[@id="survey_q2a1"]').click()
+            driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
+            driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
             embed = discord.Embed(title = "Success",
-            description = meals, color = discord.Color.blue()
+            description = "Clear!", color = discord.Color.blue()
             )
             await ctx.channel.send(embed=embed) 
 
