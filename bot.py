@@ -396,7 +396,7 @@ async def on_message(ctx):
                 await ctx.channel.send(nurl)
             try:
                 stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
-                stbtn1.send_keys(Keys.ENTER)
+                stbtn1.click()
             except Exception as ex:
                 embed = discord.Embed(title = "Failed",
                 description = "#자가진단 버튼2222222", color = discord.Color.red()
