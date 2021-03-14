@@ -418,8 +418,8 @@ async def on_message(ctx):
 
         try:
             #자가진단 버튼
-            driver.find_element_by_css_selector(
-                '#container > div > section.memberWrap > div:nth-child(2) > ul > li > a > em'
+            driver.find_element_by_xpath(
+                '//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em'
             ).click()
             send_email(driver)
             time.sleep(1)
@@ -428,10 +428,8 @@ async def on_message(ctx):
             embed = discord.Embed(title = "Failed",
             description = "#자가진단 버튼", color = discord.Color.red()
             )
-            nurl = driver.current_url
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
-            await ctx.channel.send(nurl)       
 
         time.sleep(2)
 
