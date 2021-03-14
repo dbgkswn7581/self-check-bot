@@ -22,7 +22,6 @@ from email import encoders
 
 
 
-출처: https://yeolco.tistory.com/93 [열코의 프로그래밍 일기]
 
 #한국 표준 시간으로 변경하기 (호스팅 시에만 필요함)
 def get_time():
