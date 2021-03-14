@@ -371,8 +371,8 @@ async def on_message(ctx):
             #비번 이후 확인 버튼
             psdbtn = driver.find_element_by_xpath('/html/body/app-root/div/div[1]/div[2]/div/div[2]/div/input')
             # psdbtn.send_keys(Keys.ENTER)
-            psdbtn.click()
             await ctx.channel.send(psdbtn.is_enabled())
+            psdbtn.click()
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
