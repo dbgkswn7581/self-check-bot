@@ -373,7 +373,7 @@ async def on_message(ctx):
             psdbtn = driver.find_element_by_css_selector(
                 "#btnConfirm"
             )
-            psdbtn.click()
+            psdbtn.send_keys(Keys.ENTER)
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
@@ -387,7 +387,7 @@ async def on_message(ctx):
             #자가진단 버튼
             driver.find_element_by_css_selector(
                 '#container > div > section.memberWrap > div:nth-child(2) > ul > li > a > em'
-            ).click()
+            ).send_keys(Keys.ENTER)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
