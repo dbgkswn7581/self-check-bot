@@ -399,7 +399,7 @@ async def on_message(ctx):
                 stbtn1.click()
             except Exception as ex:
                 nowurl = driver.page_source
-                sosoup = BeautifulSoup(urllib.request.urlopen(nowurl).read(), 'html.parser')
+                sosoup = BeautifulSoup(nowurl, 'html.parser')
                 meeal = sosoup.select_one('#container > div > div.contents > div > div.guid_contents > ul > li').get_text()
                 embed = discord.Embed(title = "Failed",
                 description = meeal, color = discord.Color.red()
