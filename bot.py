@@ -383,7 +383,8 @@ async def on_message(ctx):
             stbtn.send_keys(Keys.ENTER)
         except:
             try:
-                psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+                psdbtn = driver.find_element_by_xpath('//*[@id="btnConfirm"]')
+                psdbtn.send_keys(Keys.ENTER)
                 time.sleep(3)
                 stbtn = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
                 stbtn.send_keys(Keys.ENTER)
