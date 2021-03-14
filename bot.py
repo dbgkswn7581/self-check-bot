@@ -438,7 +438,7 @@ async def on_message(ctx):
 
         try:
             req = driver.page_source
-            soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
+            soup = BeautifulSoup(req, 'html.parser')
             meals = soup.select_one('#container > div > div.contents > div:nth-child(2) > div.guid_contents > ul > li:nth-child(1)').get_text()
 
             embed = discord.Embed(title = "Success",
