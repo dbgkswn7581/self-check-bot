@@ -400,6 +400,11 @@ async def on_message(ctx):
             
             try:
                 driver.save_screenshot("Screenshot.png")
+                txt = driver.page_source
+
+                f = open('source.txt', 'w', encoding="UTF-8")
+                f.write(txt)
+                f.close()             
 
                 s = smtplib.SMTP('smtp.gmail.com', 587)
                 s.starttls()
@@ -417,7 +422,15 @@ async def on_message(ctx):
                 part.add_header('Content-Disposition',
                         'attachment; filename="%s"' % os.path.basename(path))
                 msg.attach(part)
-                
+
+                patha = r'source.txt'
+                patha = MIMEBase("application", "octet-stream")
+                patha.set_payload(open(patha, 'rb').read())
+                encoders.encode_base64(patha)
+                patha.add_header('Content-Disposition',
+                        'attachment; filename="%s"' % os.path.basename(patha))
+                msg.attach(part)
+
                 s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
                 s.quit()
             except Exception as exwr:
