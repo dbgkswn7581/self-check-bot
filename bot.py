@@ -360,10 +360,9 @@ async def on_message(ctx):
 
         try:
             #비번 입력 칸
-            inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
+            inputpsd = driver.find_element_by_css_selector('#WriteInfoForm > table > tbody > tr > td > input')
             # inputpsd.click()
-            inputpsd.send_keys('6213')
-            inputpsd.send_keys(Keys.ENTER)
+            inputpsd.send_keys(6213)
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
@@ -380,7 +379,7 @@ async def on_message(ctx):
             psdbtn = driver.find_element_by_css_selector(
                 "#btnConfirm"
             )
-            psdbtn.send_keys(Keys.ENTER)
+            psdbtn.click()
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#비번 이후 확인 버튼", color = discord.Color.red()
@@ -400,11 +399,11 @@ async def on_message(ctx):
             
             try:
                 driver.save_screenshot("Screenshot.png")
-                txt = driver.page_source
 
-                f = open('source.txt', 'w', encoding="UTF-8")
-                f.write(txt)
-                f.close()             
+                # txt = driver.page_source
+                # f = open('source.txt', 'w', encoding="UTF-8")
+                # f.write(txt)
+                # f.close()             
 
                 s = smtplib.SMTP('smtp.gmail.com', 587)
                 s.starttls()
@@ -415,7 +414,7 @@ async def on_message(ctx):
                 cont['Subject'] = '제목 : 메일 보내기 테스트'
                 msg.attach(cont)
 
-                path = r'source.txt'
+                path = r'Screenshot.png'
                 part = MIMEBase("application", "octet-stream")
                 part.set_payload(open(path, 'rb').read())
                 encoders.encode_base64(part)
@@ -423,13 +422,6 @@ async def on_message(ctx):
                         'attachment; filename="%s"' % os.path.basename(path))
                 msg.attach(part)
 
-                # patha = r'source.txt'
-                # patha = MIMEBase("application", "octet-stream")
-                # patha.set_payload(open(patha, 'rb').read())
-                # encoders.encode_base64(patha)
-                # patha.add_header('Content-Disposition',
-                #         'attachment; filename="%s"' % os.path.basename(patha))
-                # msg.attach(part)
 
                 s.sendmail("dbgkswn7581@gmail.com", 'dbgkswn7581@gmail.com', msg.as_string())
                 s.quit()
