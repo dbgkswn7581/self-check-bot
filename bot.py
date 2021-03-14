@@ -157,7 +157,7 @@ def self_check():
 
     req = driver.page_source
 
-    soup = BeautifulSoup(req, 'html.parser')
+    soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
 
     meals = soup.select_one('#survey_q1').get_text()
       
@@ -181,7 +181,7 @@ async def on_ready():
 async def on_message(ctx):
     if ctx.content == "#내정보":
         user = ctx.author
-        await ctx.channel.send(f"{user.name} / {user.id}")
+        await ctx.channel.send(f"이름 : {user.name} \n ID : {user.id}")
 
 
     if ctx.content == "#진단":
