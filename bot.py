@@ -439,7 +439,7 @@ async def on_message(ctx):
         try:
             req = driver.page_source
             soup = BeautifulSoup(urllib.request.urlopen(req).read(), 'html.parser')
-            meals = soup.select_one('#survey_q1').get_text()
+            meals = soup.select_one('#container > div > div.contents > div:nth-child(2) > div.guid_contents > ul > li:nth-child(1)').get_text()
 
             embed = discord.Embed(title = "Success",
             description = meals, color = discord.Color.blue()
@@ -448,12 +448,13 @@ async def on_message(ctx):
 
 
         except Exception as ex:
-            send_email(driver)
+            
             embed = discord.Embed(title = "Failed",
             description = "#BeatifulSoup", color = discord.Color.red()
             )
             await ctx.channel.send(embed=embed)
             await ctx.channel.send(ex)
+            send_email(driver)
 
 
 
