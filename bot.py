@@ -200,13 +200,15 @@ async def on_message(ctx):
     #         embed = discord.Embed(title = "Failed",
     #         description = "에러 발생", color = discord.Color.red()
     #         )
-    #         await ctx.send(embed=embed)
+    #         await ctx.channel.send(embed=embed)
 
     if ctx.content == "#진단":
+
         embed = discord.Embed(title = "실행 중...",
         description = "~ing...", color = discord.Color.green()
         )
-        await ctx.send(embed=embed)
+        await ctx.channel.send(embed=embed)
+
         url = "https://hcs.eduro.go.kr/#/loginHome"
         soup = BeautifulSoup(url, 'html.parser')
         meals = soup.select_one('body > app-root > div > div.secondary_pw > div > h2').get_text()
@@ -214,7 +216,7 @@ async def on_message(ctx):
         embed = discord.Embed(title = "Success",
         description = meals, color = discord.Color.blue()
         )
-        await ctx.send(embed=embed)
+        await ctx.channel.send(embed=embed)
         # except:
         #     embed = discord.Embed(title = "Failed",
         #     description = "에러 발생", color = discord.Color.red()
