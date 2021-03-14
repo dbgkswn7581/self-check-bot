@@ -405,7 +405,9 @@ async def on_message(ctx):
                         (By.XPATH, '//*[@id="btnConfirm"]')
                     )
                 )
-            
+                stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
+                driver.execute_script("arguments[0].click();", stbtn1)
+
             except ElementNotVisibleException:
                 try:
                     stbtn1 = driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/span[1]')
