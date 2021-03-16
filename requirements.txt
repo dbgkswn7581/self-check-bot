@@ -2,3 +2,4 @@ discord.py
 BeautifulSoup4
 asyncio
 selenium
+wget
