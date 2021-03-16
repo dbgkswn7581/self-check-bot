@@ -3,3 +3,5 @@ BeautifulSoup4
 asyncio
 selenium
 wget
+google-api-python-client
+oauth2client
