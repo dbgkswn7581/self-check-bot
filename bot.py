@@ -20,7 +20,7 @@ import pyperclip
 import smtplib
 
 
-def copy_input(xpath, input):
+def copy_input(driver, xpath, input):
     pyperclip.copy(input)
     driver.find_element_by_xpath(xpath).click()
     ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
@@ -94,9 +94,9 @@ async def account(ctx):
         usr = "yhj7581"
         pwd = "gkswn758123"
 
-        copy_input('//*[@id="id"]',usr)
+        copy_input(driver, '//*[@id="id"]',usr)
         time.sleep(0.5)
-        copy_input('//*[@id="pw"]',pwd)
+        copy_input(driver, '//*[@id="pw"]',pwd)
         time.sleep(0.5)
 
         final_btn = driver.find_element_by_xpath('//*[@id="log.login"]')
