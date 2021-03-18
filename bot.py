@@ -11,9 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import ElementNotVisibleException
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
+
 import pyperclip
 
 
@@ -62,15 +60,17 @@ async def account(ctx):
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="list_area"]/div/div[2]/div/ul/li[8]/label/a/div/div[1]/div').click()
     # driver.find_element_by_xpath('//*[@id="content_wrap"]/div[2]/input').send_keys(r"D:/selfcheck_bot/테스트용.txt")
-
+    
+    k = os.path.abspath('.')
     embed = discord.Embed(title = "가입",
-    description = os.path.abspath('.'), color = discord.Color.gold()
+    description = k, color = discord.Color.gold()
     )
 
     await ctx.send(embed=embed)
-
+    
+    l = os.getcwd()
     embed = discord.Embed(title = "가입",
-    description = os.getcwd(), color = discord.Color.gold()
+    description = l, color = discord.Color.gold()
     )
 
     await ctx.send(embed=embed)
