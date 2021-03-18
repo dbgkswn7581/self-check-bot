@@ -77,6 +77,10 @@ async def on_ready():
 
 @client.command(name="경로")
 async def account(ctx):
+    embed = discord.Embed(title = "실행 중...",
+    color = discord.Color.green()
+    )
+    await ctx.channel.send(embed=embed)
     try:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
