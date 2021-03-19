@@ -16,14 +16,22 @@ from selenium.common.exceptions import ElementNotVisibleException
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import pyperclip
+# import pyperclip
+# import clipboard
+from tkinter import Tk
 import smtplib
 
-
 def copy_input(driver, xpath, input):
-    pyperclip.copy(input)
+    # pyperclip.copy(input)
+    # clipboard.copy(input)
+    # tmp = clipboard.paste()
+    clip = Tk()
+    clip.withdraw()
+    clip.clipboard_clear()
+    clip.clipboard_append(input)
     driver.find_element_by_xpath(xpath).click()
     ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
+
     time.sleep(1)
 
 def send_email(driver):
