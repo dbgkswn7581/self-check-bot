@@ -16,13 +16,11 @@ from selenium.common.exceptions import ElementNotVisibleException
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-# import pyperclip
 # import clipboard
 from tkinter import Tk
 import smtplib
 
 def copy_input(driver, xpath, input):
-    # pyperclip.copy(input)
     # clipboard.copy(input)
     # tmp = clipboard.paste()
     clip = Tk()
