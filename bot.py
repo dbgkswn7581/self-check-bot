@@ -14,7 +14,7 @@ async def on_ready():
 @client.command(name="경로")
 async def account(ctx):
     try:
-        embed = discord.Embed(title = os.getcwd(),
+        embed = discord.Embed(title = os.path.abspath('.'),
         color = discord.Color.green()
         )
         await ctx.channel.send(embed=embed)
