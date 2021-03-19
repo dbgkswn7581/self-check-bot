@@ -6,4 +6,4 @@ wget
 google-api-python-client
 oauth2client
 pyperclip
-tkinter
+
