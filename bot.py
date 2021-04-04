@@ -263,11 +263,12 @@ def user_check(id):
 
         
     #=====================================================================================================================
-    BASE = os.path.dirname(os.path.abspath(__file__))
-    db = os.path.join(BASE, "Test.db")
+    
     try:
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        db = os.path.join(BASE, "Test.db")
         exist = []
-        con = sqlite3.connect(db, isolation_level= None)
+        con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
         cur = con.cursor()
         cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
         rows = cur.fetchall()
@@ -356,7 +357,7 @@ async def account(ctx, *text):
             BASE = os.path.dirname(os.path.abspath(__file__))
             db = os.path.join(BASE, "Test.db")
             user_id = ctx.author.id
-            con = sqlite3.connect(db, isolation_level= None)
+            con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
             cur = con.cursor()
 
             check = user_check(user_id)
@@ -413,7 +414,7 @@ async def account(ctx, *text):
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
