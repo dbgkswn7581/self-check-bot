@@ -300,8 +300,8 @@ async def account(ctx, *text):
             await ctx.send(embed=embed)
             raise makeError
 
-        driver.get('https://mail.daum.net/#MINE') 
-        time.sleep(1.5)
+        driver.get('https://mail.daum.net/') 
+        driver.implicitly_wait(5)
         driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
         time.sleep(1.5)
         driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
@@ -316,6 +316,7 @@ async def account(ctx, *text):
         time.sleep(1.5)
         #download
         driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+        driver.close()
 
         user_id = ctx.author.id
         con = sqlite3.connect(r'Test.db', isolation_level= None)
@@ -341,7 +342,7 @@ async def account(ctx, *text):
             null = 'NULL'
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
             
-            driver.get('https://mail.daum.net/#MINE') 
+            driver.get('https://mail.daum.net/') 
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
             time.sleep(1)
@@ -364,6 +365,8 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+
+            driver.close()
 
             embed = discord.Embed(title = "가입",
             description = "개인정보 최초 등록에 성공하였습니다.", color = discord.Color.gold()
@@ -426,7 +429,7 @@ async def check(ctx):
         elif check == 1:
             cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
 
-            driver.get('https://mail.daum.net/#MINE') 
+            driver.get('https://mail.daum.net/') 
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
             time.sleep(1)
@@ -449,6 +452,8 @@ async def check(ctx):
             driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+
+            driver.close()
 
             embed = discord.Embed(title = "탈퇴",
             description = "성공적으로 개인정보가 삭제되었습니다.", color = discord.Color.dark_gold()
@@ -477,7 +482,7 @@ async def check(ctx):
 @client.command(name="진단")
 async def check(ctx):
     
-    driver.get('https://mail.daum.net/#MINE') 
+    driver.get('https://mail.daum.net/') 
     time.sleep(1.5)
     driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
     time.sleep(1.5)
