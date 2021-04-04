@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import io
+import os.path
 import os
 import time
 from bs4 import BeautifulSoup
@@ -263,9 +263,11 @@ def user_check(id):
 
         
     #=====================================================================================================================
+    BASE = os.path.dirname(os.path.abspath(__file__))
+    db = os.path.join(BASE, "Test.db")
     try:
         exist = []
-        con = sqlite3.connect(r'Test', isolation_level= None)
+        con = sqlite3.connect(db, isolation_level= None)
         cur = con.cursor()
         cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
         rows = cur.fetchall()
@@ -342,8 +344,10 @@ async def account(ctx, *text):
             
 
         try:
+            BASE = os.path.dirname(os.path.abspath(__file__))
+            db = os.path.join(BASE, "Test.db")
             user_id = ctx.author.id
-            con = sqlite3.connect(r'Test', isolation_level= None)
+            con = sqlite3.connect(db, isolation_level= None)
             cur = con.cursor()
 
             check = user_check(user_id)
@@ -353,7 +357,7 @@ async def account(ctx, *text):
 
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
-            description = "#가입 usercheck부분", color = discord.Color.red()
+            description = "#가입 usercheck부분\n %d"%check, color = discord.Color.red()
             )
             await ctx.send(embed=embed)
             await ctx.send(ex)
@@ -372,6 +376,7 @@ async def account(ctx, *text):
             raise makeError
 
         if check == 0:
+            
             null = 'NULL'
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
             
@@ -399,7 +404,7 @@ async def account(ctx, *text):
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
@@ -434,7 +439,7 @@ async def account(ctx, *text):
         con.close() 
     except Exception as ex:
             embed = discord.Embed(title = "Failed",
-            description = "#가입 부분", color = discord.Color.red()
+            description = "#가입 부분 \n%d"%check, color = discord.Color.red()
             )
             await ctx.send(embed=embed)
             await ctx.send(ex)
@@ -497,7 +502,7 @@ async def check(ctx):
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
