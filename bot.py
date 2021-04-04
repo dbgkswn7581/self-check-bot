@@ -252,7 +252,7 @@ def user_check(id):
     #=====================================================================================================================
     try:
         exist = []
-        con = sqlite`3.connect(r'Test.db', isolation_level= None)
+        con = sqlite3.connect(r'Test.db', isolation_level= None)
         cur = con.cursor()
         cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
         rows = cur.fetchall()
