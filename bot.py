@@ -341,14 +341,24 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
             
 
-        user_id = ctx.author.id
-        con = sqlite3.connect(r'Test', isolation_level= None)
-        cur = con.cursor()
+        try:
+            user_id = ctx.author.id
+            con = sqlite3.connect(r'Test', isolation_level= None)
+            cur = con.cursor()
 
-        check = user_check(user_id)
-        name = str(info[0])
-        birth = str(info[1])
-        psd = str(info[2])
+            check = user_check(user_id)
+            name = str(info[0])
+            birth = str(info[1])
+            psd = str(info[2])
+
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#가입 usercheck부분", color = discord.Color.red()
+            )
+            await ctx.send(embed=embed)
+            await ctx.send(ex)
+
+        
 
         if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
             embed = discord.Embed(title = "잘못 입력하였습니다.",
@@ -443,10 +453,17 @@ async def account_error(ctx, error):
 @client.command(name="탈퇴")
 async def check(ctx):
     try:
-        user_id = ctx.author.id
-        con = sqlite3.connect(r'Test', isolation_level= None)
-        cur = con.cursor()
-        check = user_check(user_id)
+        try:
+            user_id = ctx.author.id
+            con = sqlite3.connect(r'Test', isolation_level= None)
+            cur = con.cursor()
+            check = user_check(user_id)
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#탈퇴 usercheck부분", color = discord.Color.red()
+            )
+            await ctx.send(embed=embed)
+            await ctx.send(ex)
         
         if check == 0:
             embed = discord.Embed(title = "탈퇴",
