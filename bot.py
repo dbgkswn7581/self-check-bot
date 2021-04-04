@@ -233,23 +233,22 @@ def send_email(driver):
 
 def user_check(id):
     
-    driver.get('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com') 
-
-    usr = "yhj7581"
-    pwd = "gkswn758123"
-
-    copy_input('//*[@id="id"]',usr)
-    time.sleep(0.5)
-    copy_input('//*[@id="pw"]',pwd)
-    time.sleep(0.5)
-
-    final_btn = driver.find_element_by_xpath('//*[@id="log.login"]')
-    final_btn.click()
+    driver.get('https://mail.daum.net/#MINE') 
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
     time.sleep(2)
-
-    driver.get('https://mybox.naver.com/')
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="list_area"]/div/div[2]/div/ul/li[9]/label/a/div/div[1]/div').click()
+    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+    time.sleep(1.5)
+    #download
+    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
     #=====================================================================================================================
     exist = []
     con = sqlite3.connect(r'Test.db', isolation_level= None)
@@ -297,23 +296,22 @@ async def account(ctx, *text):
         await ctx.send(embed=embed)
         raise makeError
 
-    driver.get('https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com') 
-
-    usr = "yhj7581"
-    pwd = "gkswn758123"
-
-    copy_input('//*[@id="id"]',usr)
-    time.sleep(0.5)
-    copy_input('//*[@id="pw"]',pwd)
-    time.sleep(0.5)
-
-    final_btn = driver.find_element_by_xpath('//*[@id="log.login"]')
-    final_btn.click()
+    driver.get('https://mail.daum.net/#MINE') 
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
     time.sleep(2)
-
-    driver.get('https://mybox.naver.com/')
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="list_area"]/div/div[2]/div/ul/li[8]/label/a/div/div[1]/div').click()
+    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+    time.sleep(1.5)
+    #download
+    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
     user_id = ctx.author.id
     con = sqlite3.connect(r'Test.db', isolation_level= None)
@@ -339,7 +337,29 @@ async def account(ctx, *text):
         null = 'NULL'
         cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
         
-        driver.find_element_by_xpath('//*[@id="content_wrap"]/div[2]/input').send_keys(r"Test.db")
+        driver.get('https://mail.daum.net/#MINE') 
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+        driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+        driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+        time.sleep(2)
+        driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1)
+        #download
+        # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+
+        #upload
+        driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
+        driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
+        driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
         embed = discord.Embed(title = "가입",
         description = "개인정보 최초 등록에 성공하였습니다.", color = discord.Color.gold()
@@ -395,7 +415,31 @@ async def check(ctx):
             await ctx.send(embed=embed)
         elif check == 1:
             cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
-            driver.find_element_by_xpath('//*[@id="content_wrap"]/div[2]/input').send_keys(r"Test.db")
+
+            driver.get('https://mail.daum.net/#MINE') 
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+            driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+            time.sleep(2)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+            time.sleep(1)
+            #download
+            # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+
+            #upload
+            driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
+            driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+
             embed = discord.Embed(title = "탈퇴",
             description = "성공적으로 개인정보가 삭제되었습니다.", color = discord.Color.dark_gold()
             )
@@ -423,7 +467,22 @@ async def check(ctx):
 @client.command(name="진단")
 async def check(ctx):
     
-
+    driver.get('https://mail.daum.net/#MINE') 
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+    time.sleep(2)
+    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+    time.sleep(1.5)
+    #download
+    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
     user_id = ctx.author.id
     con = sqlite3.connect(r'Test.db', isolation_level= None)
@@ -650,7 +709,7 @@ async def check(ctx):
             driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
             embed = discord.Embed(title = "Success",
-            description = "Clear!", color = discord.Color.blue()
+            description = "자가진단이 완료되었습니다.", color = discord.Color.blue()
             )
             await ctx.send(embed=embed) 
 
