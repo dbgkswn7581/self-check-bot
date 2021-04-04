@@ -248,7 +248,9 @@ def user_check(id):
         driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
         time.sleep(2)
         driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-        time.sleep(1.5)
+        element = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+            )
         driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
         time.sleep(1.5)
         #download
@@ -325,7 +327,9 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
             time.sleep(2)
             driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-            time.sleep(1.5)
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
             time.sleep(1.5)
             #download
@@ -362,7 +366,9 @@ async def account(ctx, *text):
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
             
             driver.get('https://mail.daum.net/') 
-            time.sleep(1)
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
@@ -372,7 +378,9 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
             time.sleep(2)
             driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-            time.sleep(1)
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
             time.sleep(1)
             #download
@@ -449,7 +457,9 @@ async def check(ctx):
             cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
 
             driver.get('https://mail.daum.net/') 
-            time.sleep(1)
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
@@ -459,7 +469,9 @@ async def check(ctx):
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
             time.sleep(2)
             driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-            time.sleep(1)
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
             time.sleep(1)
             #download
@@ -502,7 +514,9 @@ async def check(ctx):
 async def check(ctx):
     
     driver.get('https://mail.daum.net/') 
-    time.sleep(1.5)
+    element = WebDriverWait(driver, 3).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+        )
     driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
     time.sleep(1.5)
     driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
