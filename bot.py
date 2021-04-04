@@ -317,7 +317,7 @@ async def account(ctx, *text):
 
         driver.get('https://mail.daum.net/#MINE') 
         try:
-            element = WebDriverWait(driver, 3).until(
+            element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
