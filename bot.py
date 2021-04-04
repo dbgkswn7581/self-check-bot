@@ -265,6 +265,8 @@ def user_check(id):
     con.close()
     driver.close()
 
+    
+
 
 #================================================================================================================================================
 client = commands.Bot(command_prefix='#')
@@ -327,9 +329,9 @@ async def account(ctx, *text):
         description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
         )
         embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
-        embed.add_field(name="Add", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
-        embed.add_field(name="Add", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
-        embed.add_field(name="Add", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
+        embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
+        embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
+        embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
         await ctx.send(embed=embed)
         raise makeError
 
@@ -380,24 +382,35 @@ async def account_error(ctx, error):
 
 @client.command(name="탈퇴")
 async def check(ctx):
-    user_id = ctx.author.id
-    con = sqlite3.connect(r'Test.db', isolation_level= None)
-    cur = con.cursor()
-    check = user_check(user_id)
+    try:
+        user_id = ctx.author.id
+        con = sqlite3.connect(r'Test.db', isolation_level= None)
+        cur = con.cursor()
+        check = user_check(user_id)
+        
+        if check == 0:
+            embed = discord.Embed(title = "탈퇴",
+            description = "개인정보 등록이 되어있지 않습니다.", color = discord.Color.dark_gold()
+            )
+            await ctx.send(embed=embed)
+        elif check == 1:
+            cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
+            driver.find_element_by_xpath('//*[@id="content_wrap"]/div[2]/input').send_keys(r"Test.db")
+            embed = discord.Embed(title = "탈퇴",
+            description = "성공적으로 개인정보가 삭제되었습니다.", color = discord.Color.dark_gold()
+            )
+            await ctx.send(embed=embed)
+        con.close()
+
+    except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#탈퇴 부분", color = discord.Color.red()
+            )
+            await ctx.send(embed=embed)
+            await ctx.send(ex)
+
     
-    if check == 0:
-        embed = discord.Embed(title = "탈퇴",
-        description = "개인정보 등록이 되어있지 않습니다.", color = discord.Color.dark_gold()
-        )
-        await ctx.send(embed=embed)
-    elif check == 1:
-        cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
-        driver.find_element_by_xpath('//*[@id="content_wrap"]/div[2]/input').send_keys(r"Test.db")
-        embed = discord.Embed(title = "탈퇴",
-        description = "성공적으로 개인정보가 삭제되었습니다.", color = discord.Color.dark_gold()
-        )
-        await ctx.send(embed=embed)
-    con.close()
+
     
 
 @client.command(name="내정보")
