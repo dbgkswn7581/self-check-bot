@@ -14,6 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import ElementNotVisibleException
+from selenium.webdriver.support import expected_conditions as EC
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -234,21 +235,31 @@ def send_email(driver):
 def user_check(id):
     
     driver.get('https://mail.daum.net/#MINE') 
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
-    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
-    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-    time.sleep(2)
-    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-    time.sleep(1.5)
-    #download
-    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+    try:
+        element = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+            )
+        driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+        driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+        driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+        time.sleep(2)
+        driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1.5)
+        #download
+        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+    except:
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1.5)
+        #download
+        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
+
+        
     #=====================================================================================================================
     try:
         exist = []
@@ -301,7 +312,9 @@ async def account(ctx, *text):
             raise makeError
 
         driver.get('https://mail.daum.net/') 
-        driver.implicitly_wait(5)
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+            )
         driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
         time.sleep(1.5)
         driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
