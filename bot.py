@@ -22,7 +22,7 @@ from email import encoders
 import sqlite3
 import pyperclip
 
-# con = sqlite3.connect("Test.db", isolation_level= None)
+# con = sqlite3.connect("Test", isolation_level= None)
 # cur = con.cursor()
 # cur.execute("CREATE TABLE IF NOT EXISTS User_Info(id INTEGER PRIMARY KEY, name TEXT, birth TEXT, psd TEXT)")
 
@@ -263,7 +263,7 @@ def user_check(id):
     #=====================================================================================================================
     try:
         exist = []
-        con = sqlite3.connect(r'Test.db', isolation_level= None)
+        con = sqlite3.connect(r'Test', isolation_level= None)
         cur = con.cursor()
         cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
         rows = cur.fetchall()
@@ -338,7 +338,7 @@ async def account(ctx, *text):
             
 
         user_id = ctx.author.id
-        con = sqlite3.connect(r'Test.db', isolation_level= None)
+        con = sqlite3.connect(r'Test', isolation_level= None)
         cur = con.cursor()
 
         check = user_check(user_id)
@@ -381,7 +381,7 @@ async def account(ctx, *text):
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
@@ -436,7 +436,7 @@ async def account_error(ctx, error):
 async def check(ctx):
     try:
         user_id = ctx.author.id
-        con = sqlite3.connect(r'Test.db', isolation_level= None)
+        con = sqlite3.connect(r'Test', isolation_level= None)
         cur = con.cursor()
         check = user_check(user_id)
         
@@ -468,7 +468,7 @@ async def check(ctx):
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test')
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
@@ -519,7 +519,7 @@ async def check(ctx):
     driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
     user_id = ctx.author.id
-    con = sqlite3.connect(r'Test.db', isolation_level= None)
+    con = sqlite3.connect(r'Test', isolation_level= None)
     cur = con.cursor()
 
     user_check(user_id)
