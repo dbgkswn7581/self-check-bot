@@ -311,8 +311,9 @@ async def account(ctx, *text):
             await ctx.send(embed=embed)
             raise makeError
 
-        driver.get('https://mail.daum.net/') 
-        element = WebDriverWait(driver, 10).until(
+    driver.get('https://mail.daum.net/#MINE') 
+    try:
+        element = WebDriverWait(driver, 3).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
             )
         driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
@@ -329,6 +330,11 @@ async def account(ctx, *text):
         time.sleep(1.5)
         #download
         driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+    except:
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1.5)
+        #download
+        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
          
 
         user_id = ctx.author.id
