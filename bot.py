@@ -336,11 +336,20 @@ async def account(ctx, *text):
             time.sleep(1.5)
             #download
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+            embed = discord.Embed(title = "Wait",
+            description = "#가입111", color = discord.Color.dark_teal()
+            )
+            await ctx.send(embed=embed)
         except:
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
             time.sleep(1.5)
             #download
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
+            embed = discord.Embed(title = "Wait",
+            description = "#가입222222", color = discord.Color.dark_teal()
+            )
+            await ctx.send(embed=embed)
+
             
 
         try:
