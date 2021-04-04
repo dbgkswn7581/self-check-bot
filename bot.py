@@ -282,115 +282,122 @@ async def on_ready():
 
 @client.command(name="가입")
 async def account(ctx, *text):
-    txt = ''
-    for tmp in text:
-        txt += tmp
-        txt += ' '
-    info = txt.split()
-    
-    if len(info) == 0 or len(info) == 1 or len(info) == 2 or len(info) >= 4:
-        embed = discord.Embed(title = "잘못 입력하였습니다.",
-        description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
-        )
-        embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
-        embed.add_field(name="Add", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
-        embed.add_field(name="Add", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
-        embed.add_field(name="Add", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
-        await ctx.send(embed=embed)
-        raise makeError
-
-    driver.get('https://mail.daum.net/#MINE') 
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
-    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
-    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-    time.sleep(2)
-    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-    time.sleep(1.5)
-    #download
-    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-
-    user_id = ctx.author.id
-    con = sqlite3.connect(r'Test.db', isolation_level= None)
-    cur = con.cursor()
-
-    check = user_check(user_id)
-    name = str(info[0])
-    birth = str(info[1])
-    psd = str(info[2])
-
-    if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
-        embed = discord.Embed(title = "잘못 입력하였습니다.",
-        description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
-        )
-        embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
-        embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
-        embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
-        embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
-        await ctx.send(embed=embed)
-        raise makeError
-
-    if check == 0:
-        null = 'NULL'
-        cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
+    try:
+        txt = ''
+        for tmp in text:
+            txt += tmp
+            txt += ' '
+        info = txt.split()
         
+        if len(info) == 0 or len(info) == 1 or len(info) == 2 or len(info) >= 4:
+            embed = discord.Embed(title = "잘못 입력하였습니다.",
+            description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
+            )
+            embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
+            embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
+            embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
+            embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
+            await ctx.send(embed=embed)
+            raise makeError
+
         driver.get('https://mail.daum.net/#MINE') 
-        time.sleep(1)
+        time.sleep(1.5)
         driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-        time.sleep(1)
+        time.sleep(1.5)
         driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-        time.sleep(1)
+        time.sleep(1.5)
         driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
         driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
         driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
         time.sleep(2)
         driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-        time.sleep(1)
-        #download
-        # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-
-        #upload
-        driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
-        driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-        driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
         time.sleep(1.5)
-        driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1.5)
+        #download
+        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
-        embed = discord.Embed(title = "가입",
-        description = "개인정보 최초 등록에 성공하였습니다.", color = discord.Color.gold()
-        )
+        user_id = ctx.author.id
+        con = sqlite3.connect(r'Test.db', isolation_level= None)
+        cur = con.cursor()
 
-        embed.add_field(name="이름", value=name, inline=False)
-        embed.add_field(name="생년월일", value=birth, inline=False)
-        embed.add_field(name="비밀번호", value=psd, inline=False)
+        check = user_check(user_id)
+        name = str(info[0])
+        birth = str(info[1])
+        psd = str(info[2])
 
-        await ctx.send(embed=embed)
-    
-    elif check == 1:
-        cur.execute("SELECT * FROM User_Info WHERE id = ?", (user_id, ))
-        A_info = cur.fetchall()
-        A_info = str(A_info[0]).replace("'", "").replace(',',"").replace('(',"").replace(')',"").split(" ")
+        if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
+            embed = discord.Embed(title = "잘못 입력하였습니다.",
+            description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
+            )
+            embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
+            embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
+            embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
+            embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
+            await ctx.send(embed=embed)
+            raise makeError
+
+        if check == 0:
+            null = 'NULL'
+            cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
+            
+            driver.get('https://mail.daum.net/#MINE') 
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+            driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+            time.sleep(2)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+            time.sleep(1)
+            #download
+            # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+
+            #upload
+            driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
+            driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+
+            embed = discord.Embed(title = "가입",
+            description = "개인정보 최초 등록에 성공하였습니다.", color = discord.Color.gold()
+            )
+
+            embed.add_field(name="이름", value=name, inline=False)
+            embed.add_field(name="생년월일", value=birth, inline=False)
+            embed.add_field(name="비밀번호", value=psd, inline=False)
+
+            await ctx.send(embed=embed)
+        
+        elif check == 1:
+            cur.execute("SELECT * FROM User_Info WHERE id = ?", (user_id, ))
+            A_info = cur.fetchall()
+            A_info = str(A_info[0]).replace("'", "").replace(',',"").replace('(',"").replace(')',"").split(" ")
 
 
-        embed = discord.Embed(title = "가입",
-        description = "이미 개인정보 등록이 되어있습니다.", color = discord.Color.gold()
-        )
+            embed = discord.Embed(title = "가입",
+            description = "이미 개인정보 등록이 되어있습니다.", color = discord.Color.gold()
+            )
 
-        embed.add_field(name="이름", value=A_info[1], inline=False)
-        embed.add_field(name="생년월일", value=A_info[2], inline=False)
-        embed.add_field(name="비밀번호", value=A_info[3], inline=False)
+            embed.add_field(name="이름", value=A_info[1], inline=False)
+            embed.add_field(name="생년월일", value=A_info[2], inline=False)
+            embed.add_field(name="비밀번호", value=A_info[3], inline=False)
 
-        await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
-    con.close()
+        con.close() 
+    except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#가입 부분", color = discord.Color.red()
+            )
+            await ctx.send(embed=embed)
+            await ctx.send(ex)
 
 @account.error
 async def account_error(ctx, error):
