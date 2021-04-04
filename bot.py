@@ -250,18 +250,21 @@ def user_check(id):
     #download
     driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
     #=====================================================================================================================
-    exist = []
-    con = sqlite3.connect(r'Test.db', isolation_level= None)
-    cur = con.cursor()
-    cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
-    rows = cur.fetchall()
-    for i in rows:
-        exist.append(i[0])
-    if id not in exist:
+    try:
+        exist = []
+        con = sqlite`3.connect(r'Test.db', isolation_level= None)
+        cur = con.cursor()
+        cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
+        rows = cur.fetchall()
+        for i in rows:
+            exist.append(i[0])
+        if id not in exist:
+            return 0
+        elif id in exist:
+            return 1
+        con.close()
+    except:
         return 0
-    elif id in exist:
-        return 1
-    con.close()
     driver.close()
 
     
