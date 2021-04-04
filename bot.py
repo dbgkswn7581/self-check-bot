@@ -450,6 +450,8 @@ async def account(ctx, *text):
             embed = discord.Embed(title = "Failed",
             description = "#가입 부분 \n%d"%check, color = discord.Color.red()
             )
+            embed.add_field(name='1', value=BASE, inline=True)
+            embed.add_field(name='2', value=db, inline=True)
             await ctx.send(embed=embed)
             await ctx.send(ex)
 
