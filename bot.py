@@ -368,6 +368,7 @@ async def account(ctx, *text):
             #download
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
             time.sleep(2)
+            send_email(driver)
             driver.close()
 
             BASE = os.path.dirname(os.path.abspath(__file__))
@@ -425,7 +426,9 @@ async def account(ctx, *text):
             # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'C:/Users/유한주/Downloads/Test.db')
             time.sleep(2.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+
             time.sleep(2.5)
+            send_email(driver)
             driver.close()
 
             # os.remove(r"C:/Users/유한주/Downloads/Test.db")
