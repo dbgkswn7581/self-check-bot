@@ -217,7 +217,7 @@ def user_check(id):
     exist = []
     os.chmod(r'/app/Test.db', stat.S_IRWXO)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
-    con = sqlite3.connect('Test.db', isolation_level= None)
+    con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
     cur = con.cursor()
     cur.execute("SELECT user_id FROM User_Info WHERE user_id = ?", (id,))
@@ -359,7 +359,7 @@ async def account(ctx, *text):
             os.chmod(r'/app/Test.db', stat.S_IRWXO)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect('Test.db', isolation_level= None)
+            con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
@@ -464,7 +464,7 @@ async def account(ctx, *text):
             os.chmod(r'/app/Test.db', stat.S_IRWXO)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect('Test.db', isolation_level= None)
+            con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
