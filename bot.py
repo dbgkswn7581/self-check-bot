@@ -27,18 +27,15 @@ import pyperclip
 # cur = con.cursor()
 # cur.execute("CREATE TABLE IF NOT EXISTS User_Info(id INTEGER PRIMARY KEY, name TEXT, birth TEXT, psd TEXT)")
 
-def copy_input(xpath, input):
-    pyperclip.copy(input)
-    driver.find_element_by_xpath(xpath).click()
-    ActionChains(driver).key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).perform()
-    time.sleep(1)
+#======================================================================================
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
 
 #에러 발생
 class makeError(Exception):
@@ -234,57 +231,72 @@ def send_email(driver):
     return meals
 
 def user_check(id):
-    global sibal
-    driver.get('https://mail.daum.net/#MINE') 
-    try:
-        element = WebDriverWait(driver, 3).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
-            )
-        driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-        time.sleep(1.5)
-        driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-        time.sleep(1.5)
-        driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
-        driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
-        driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-        time.sleep(2)
-        driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-        element = WebDriverWait(driver, 3).until(
-            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
-            )
-        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-        time.sleep(1.5)
-        #download
-        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-    except:
-        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-        time.sleep(1.5)
-        #download
-        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+    driver.get('https://mail.daum.net/') 
+
+    element = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+        )
+    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+    time.sleep(1)
+    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+    element = WebDriverWait(driver, 3).until(
+        EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
+        )
+    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+    time.sleep(1.5)
+    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+    time.sleep(2)
+    #download
+    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+    time.sleep(1)
+    driver.close()
+
 
         
     #=====================================================================================================================
-    
-    try:
-        sibal = 17
-        BASE = os.path.dirname(os.path.abspath(__file__))
-        db = os.path.join(BASE, "Test.db")
-        exist = []
-        os.chmod(r'/app/Test.db', stat.S_IWRITE)
-        con = sqlite3.connect('/app/Test.db', isolation_level= None)
-        cur = con.cursor()
-        cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
-        rows = cur.fetchall()
-        for i in rows:
-            exist.append(i[0])
-        if id not in exist:
-            return 0
-        elif id in exist:
-            return 1
+    time.sleep(1.5)
+
+
+    BASE = os.path.dirname(os.path.abspath(__file__))
+    db = os.path.join(BASE, "Test.db")
+    print(BASE, db)
+    exist = []
+    os.chmod(r'/app/Test.db', stat.S_IWRITE)
+    # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
+    con = sqlite3.connect('/app/Test.db', isolation_level= None)
+    # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
+    cur = con.cursor()
+    cur.execute("SELECT user_id FROM User_Info WHERE user_id = ?", (id,))
+    rows = cur.fetchall()
+    for i in rows:
+        exist.append(i[0])
+    if id not in exist:
         con.close()
-    except:
-        sibal = 18
+        os.remove(r"/app/Test.db")
+        # os.remove(r"C:/Users/유한주/Downloads/Test.db")
         return 0
+    elif id in exist:
+        con.close()
+        os.remove(r"/app/Test.db")
+        # os.remove(r"C:/Users/유한주/Downloads/Test.db")
+        return 1
+    
+
      
 
     
@@ -320,8 +332,60 @@ async def account(ctx, *text):
             await ctx.send(embed=embed)
             raise makeError
 
-        driver.get('https://mail.daum.net/#MINE') 
+
+        embed = discord.Embed(title = "Wait",
+        description = " ", color = discord.Color.dark_teal()
+        )
+        await ctx.send(embed=embed)
+        
+
         try:
+            user_id = ctx.author.id
+            check = user_check(int(user_id))
+            
+            name = str(info[0])
+            birth = str(info[1])
+            psd = str(info[2])
+
+            print(check, name, birth, psd)
+
+
+        except Exception as ex:
+            embed = discord.Embed(title = "Failed",
+            description = "#가입 usercheck부분", color = discord.Color.red()
+            )
+            await ctx.send(embed=embed)
+            await ctx.send(ex)
+        
+
+        
+
+        if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
+            embed = discord.Embed(title = "잘못 입력하였습니다.",
+            description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
+            )
+            embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
+            embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
+            embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
+            embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
+            await ctx.send(embed=embed)
+            raise makeError
+
+        
+
+
+        if check == 0:
+            null = 'NULL'
+
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+            driver.get('https://mail.daum.net/') 
+            
             element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
@@ -331,107 +395,73 @@ async def account(ctx, *text):
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
             driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-            time.sleep(2)
-            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
             element = WebDriverWait(driver, 3).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
                 )
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
             time.sleep(1.5)
             #download
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-            embed = discord.Embed(title = "Wait",
-            description = "#가입111", color = discord.Color.dark_teal()
-            )
-            await ctx.send(embed=embed)
-        except:
-            driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-            time.sleep(1.5)
-            #download
-            driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click()
-            embed = discord.Embed(title = "Wait",
-            description = "#가입222222", color = discord.Color.dark_teal()
-            )
-            await ctx.send(embed=embed)
+            time.sleep(1)
+            driver.close()
 
-            
-
-        try:
             os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect('/app/Test.db', isolation_level= None)
+            # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
-            check = user_check(user_id)
-            name = str(info[0])
-            birth = str(info[1])
-            psd = str(info[2])
-
-            embed = discord.Embed(title = "Wait33312312313",
-            description = "#가입222222", color = discord.Color.magenta()
-            )
-            await ctx.send(embed=embed)
-
-        except Exception as ex:
-            embed = discord.Embed(title = "Failed",
-            description = "#가입 usercheck부분\n %d"%check, color = discord.Color.red()
-            )
-            await ctx.send(embed=embed)
-            await ctx.send(ex)
-
-        
-
-        # if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
-        #     embed = discord.Embed(title = "잘못 입력하였습니다.",
-        #     description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
-        #     )
-        #     embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
-        #     embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
-        #     embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
-        #     embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
-        #     await ctx.send(embed=embed)
-        #     raise makeError
-        # else:
-        #     embed = discord.Embed(title = "Wait333333333333",
-        #     description = "#가입222222", color = discord.Color.magenta()
-        #     )
-        #     await ctx.send(embed=embed)
-        
-
-
-        if check == 0:
-            null = 'NULL'
-            
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
-            
+            time.sleep(1)
+            con.close()
+
+            driver = webdriver.Chrome('chromedriver.exe')
             driver.get('https://mail.daum.net/') 
-            element = WebDriverWait(driver, 3).until(
+            element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-            time.sleep(1)
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-            time.sleep(1)
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
             driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-            time.sleep(2)
-            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-            element = WebDriverWait(driver, 3).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+            element = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
                 )
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-            time.sleep(1)
+            time.sleep(1.5)
+
             #download
             # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
-            time.sleep(1.5)
+            # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'C:/Users/유한주/Downloads/Test.db')
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+            time.sleep(1)
+            driver.close()
+
+            # os.remove(r"C:/Users/유한주/Downloads/Test.db")
+            os.remove(r"/app/Test.db")
 
              
 
@@ -446,10 +476,54 @@ async def account(ctx, *text):
             await ctx.send(embed=embed)
         
         elif check == 1:
-            cur.execute("SELECT * FROM User_Info WHERE id = ?", (user_id, ))
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+            driver.get('https://mail.daum.net/') 
+            
+            element = WebDriverWait(driver, 6).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+                )
+            driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+            driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+            element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
+                )
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+            time.sleep(1.5)
+            #download
+            driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+            time.sleep(1)
+            driver.close()
+
+            os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
+            user_id = ctx.author.id
+            con = sqlite3.connect('/app/Test.db', isolation_level= None)
+            # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
+            cur = con.cursor()
+
+            cur.execute("SELECT * FROM User_Info WHERE user_id = ?", (user_id, ))
             A_info = cur.fetchall()
             A_info = str(A_info[0]).replace("'", "").replace(',',"").replace('(',"").replace(')',"").split(" ")
 
+            con.close()
+            os.remove(r"/app/Test.db")
+            # os.remove(r'C:/Users/유한주/Downloads/Test.db')
 
             embed = discord.Embed(title = "가입",
             description = "이미 개인정보 등록이 되어있습니다.", color = discord.Color.gold()
@@ -461,21 +535,26 @@ async def account(ctx, *text):
 
             await ctx.send(embed=embed)
 
-        con.close() 
+            
+
+        
     except Exception as ex:
             embed = discord.Embed(title = "Failed",
-            description = "#가입 부분 \n%d"%check, color = discord.Color.red()
+            description = "#가입 부분", color = discord.Color.red()
             )
+            print(ex)
             await ctx.send(embed=embed)
             await ctx.send(ex)
+    # finally:
+    #     print("discord")
 
-@account.error
-async def account_error(ctx, error):
-    print("=======================" + error + "=================================")
-    embed = discord.Embed(title = "잘못 입력하였습니다.",
-    description = "다시 입력해주세요.", color = discord.Color.dark_red()
-    )
-    await ctx.send(embed=embed)
+# @account.error
+# async def account_error(ctx, error):
+#     print(error)
+#     embed = discord.Embed(title = "잘못 입력하였습니다.",
+#     description = "다시 입력해주세요.", color = discord.Color.dark_red()
+#     )
+#     await ctx.send(embed=embed)
     
 
 # cur.execute("INSERT INTO User_Info  VALUES(?, ?, ?)", ("유한주", "031210", "6213"))
@@ -485,9 +564,8 @@ async def check(ctx):
     try:
         try:
             user_id = ctx.author.id
-            con = sqlite3.connect('/app/Test.db', isolation_level= None)
-            cur = con.cursor()
             check = user_check(user_id)
+
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#탈퇴 usercheck부분", color = discord.Color.red()
@@ -500,44 +578,104 @@ async def check(ctx):
             description = "개인정보 등록이 되어있지 않습니다.", color = discord.Color.dark_gold()
             )
             await ctx.send(embed=embed)
+
         elif check == 1:
-            cur.execute("DELETE FROM User_Info WHERE id = ?", (user_id,))
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
             driver.get('https://mail.daum.net/') 
-            element = WebDriverWait(driver, 3).until(
+            
+            element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-            time.sleep(1)
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-            time.sleep(1)
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
             driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-            time.sleep(2)
-            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
             element = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
+                )
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+            time.sleep(1.5)
+            #download
+            driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+            time.sleep(1)
+            driver.close()
+
+            os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
+            user_id = ctx.author.id
+            con = sqlite3.connect('/app/Test.db', isolation_level= None)
+            # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
+            cur = con.cursor()
+
+            cur.execute("DELETE FROM User_Info WHERE user_id = ?", (user_id,))
+            con.close()
+
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+            driver.get('https://mail.daum.net/') 
+            element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
+            driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+            driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+            element = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
+            )
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
+            driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+            time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-            time.sleep(1)
+            time.sleep(1.5)
+
             #download
             # driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
             #upload
             driver.find_element_by_xpath('//*[@id="mailViewer"]/div[1]/div/div/div/button[2]').click() 
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'Test.db')
-            time.sleep(1.5)
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
+            # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'D:/selfcheck_bot/Test.db')
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
+            time.sleep(2)
+            driver.close()
 
-             
+            os.remove(r"/app/Test.db")
+            # os.remove(r"C:/Users/유한주/Downloads/Test.db")
 
             embed = discord.Embed(title = "탈퇴",
             description = "성공적으로 개인정보가 삭제되었습니다.", color = discord.Color.dark_gold()
             )
             await ctx.send(embed=embed)
-        con.close()
+
 
     except Exception as ex:
             embed = discord.Embed(title = "Failed",
@@ -559,45 +697,68 @@ async def check(ctx):
 # ===================================Selenium==========================================
 @client.command(name="진단")
 async def check(ctx):
-    
-    driver.get('https://mail.daum.net/') 
-    element = WebDriverWait(driver, 3).until(
-        EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
-        )
-    driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
-    driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
-    driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-    time.sleep(2)
-    driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
-    time.sleep(1.5)
-    driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-    time.sleep(1.5)
-    #download
-    driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-
     user_id = ctx.author.id
-    con = sqlite3.connect('app/Test.db', isolation_level= None)
-    cur = con.cursor()
+    check = user_check(user_id)
 
-    user_check(user_id)
-
-    if user_check == 0:
+    if check == 0:
 
         embed = discord.Embed(title = "미가입 유저입니다. #가입 으로 가입해주십시오.",
         color = discord.Color.red()
         )
         await ctx.send(embed=embed)
-    elif user_check == 1:
-        cur.execute("SELECT * FROM User_Info WHERE id = ?", (user_id, ))
+
+    elif check == 1:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+        driver.get('https://mail.daum.net/') 
+        
+        element = WebDriverWait(driver, 6).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
+            )
+        driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="mArticle"]/div/div/div/div[3]/a[1]').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
+        driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
+        element = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
+            )
+        driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
+        time.sleep(1.5)
+        driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
+        time.sleep(1.5)
+        #download
+        driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
+        time.sleep(1)
+        driver.close()
+
+        os.chmod(r'/app/Test.db', stat.S_IWRITE)
+        # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
+        user_id = ctx.author.id
+        con = sqlite3.connect('/app/Test.db', isolation_level= None)
+        # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
+        cur = con.cursor()
+
+        cur.execute("SELECT * FROM User_Info WHERE user_id = ?", (user_id, ))
         A_info = cur.fetchall()
         A_info = str(A_info[0]).replace("'", "").replace(',',"").replace('(',"").replace(')',"").split(" ")
         name = A_info[1]
         birth = A_info[2]
         psd = A_info[3]
+
+        con.close()
+        os.remove(r"/app/Test.db")
+        # os.remove(r'C:/Users/유한주/Downloads/Test.db')
 
         # if ctx.content == "#진단":
         embed = discord.Embed(title = "실행 중...",
@@ -608,7 +769,14 @@ async def check(ctx):
 
 
         url = "https://hcs.eduro.go.kr/#/loginHome"
-        
+
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
         driver.get(url)
 
         driver.find_element_by_xpath('//*[@id="btnConfirm2"]').click() #시작화면에서 시작 버튼 클릭
@@ -802,7 +970,8 @@ async def check(ctx):
             driver.find_element_by_xpath('//*[@id="survey_q2a1"]').click()
             driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
             driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-
+            driver.close()
+            
             embed = discord.Embed(title = "Success",
             description = "자가진단이 완료되었습니다.", color = discord.Color.blue()
             )
@@ -817,6 +986,8 @@ async def check(ctx):
             await ctx.send(embed=embed)
             await ctx.send(ex)
             send_email(driver)
+        
+        
 
 
 
@@ -827,4 +998,4 @@ async def check(ctx):
 
 
 client.run(os.environ['token'])
-# client.run("ODE0MzExODc5MzA3NTU4OTQy.YDcBCQ.K3UqVc_KCj0orIPL_rfEeSdgkBA")
+# client.run("ODE5MjEzODc0NTk4MjQ4NDY4.YEjWXw.3tgy3_OfH6gSTX6_HadtrN83C0Y")
