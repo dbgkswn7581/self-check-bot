@@ -169,7 +169,7 @@ def send_email(driver):
     return meals
 
 def user_check(id):
-
+    global BASE, db
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
@@ -214,9 +214,9 @@ def user_check(id):
     db = os.path.join(BASE, "Test.db")
     print(BASE, db)
     exist = []
-    os.chmod(r'app/Test.db', stat.S_IWRITE)
+    os.chmod(r'/app/Test.db', stat.S_IWRITE)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
-    con = sqlite3.connect('app/Test.db', isolation_level= None)
+    con = sqlite3.connect('/app/Test.db', isolation_level= None)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
     cur = con.cursor()
     cur.execute("SELECT user_id FROM User_Info WHERE user_id = ?", (id,))
@@ -225,12 +225,12 @@ def user_check(id):
         exist.append(i[0])
     if id not in exist:
         con.close()
-        os.remove(r"app/Test.db")
+        os.remove(r"/app/Test.db")
         # os.remove(r"C:/Users/유한주/Downloads/Test.db")
         return 0
     elif id in exist:
         con.close()
-        os.remove(r"app/Test.db")
+        os.remove(r"/app/Test.db")
         # os.remove(r"C:/Users/유한주/Downloads/Test.db")
         return 1
     
@@ -292,6 +292,8 @@ async def account(ctx, *text):
             embed = discord.Embed(title = "Failed",
             description = "#가입 usercheck부분", color = discord.Color.red()
             )
+            embed.add_field(name='BASE', value=BASE, inline=False)
+            embed.add_field(name='db', value=db, inline=False)
             await ctx.send(embed=embed)
             await ctx.send(ex)
         
