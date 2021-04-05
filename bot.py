@@ -180,7 +180,7 @@ def user_check(id):
 
     driver.get('https://mail.daum.net/') 
 
-    element = WebDriverWait(driver, 5).until(
+    element = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
         )
     driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
@@ -191,7 +191,7 @@ def user_check(id):
     driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
     time.sleep(1)
     driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-    element = WebDriverWait(driver, 3).until(
+    element = WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
         )
     driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
@@ -344,8 +344,8 @@ async def account(ctx, *text):
             driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
             driver.get('https://mail.daum.net/') 
-            
-            element = WebDriverWait(driver, 6).until(
+
+            element = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
                 )
             driver.find_element_by_xpath('//*[@id="daumHead"]/div/div/a[4]/span').click()
@@ -354,9 +354,9 @@ async def account(ctx, *text):
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="id_email_2"]').send_keys('t01085556213@gmail.com')
             driver.find_element_by_xpath('//*[@id="id_password_3"]').send_keys('gkswn7581%')
-            time.sleep(1.5)
+            time.sleep(1)
             driver.find_element_by_xpath('//*[@id="login-form"]/fieldset/div[8]/button[1]').click()
-            element = WebDriverWait(driver, 3).until(
+            element = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]'))
                 )
             driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
@@ -364,11 +364,10 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="folder"]/div/div/div[1]/ul/li[3]/a[1]').click()
             time.sleep(1.5)
             driver.find_element_by_xpath('//*[@id="mailList"]/div[1]/div/ul/li/div[3]/a[1]/strong').click()
-            time.sleep(1.5)
+            time.sleep(2)
             #download
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
-            time.sleep(2)
-            send_email(driver)
+            time.sleep(1)
             driver.close()
 
             BASE = os.path.dirname(os.path.abspath(__file__))
