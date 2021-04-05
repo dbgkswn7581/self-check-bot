@@ -372,8 +372,6 @@ async def account(ctx, *text):
 
             BASE = os.path.dirname(os.path.abspath(__file__))
             db = os.path.join(BASE, "Test.db")
-            print(BASE, db)
-            exist = []
             os.chmod(db, 0o777)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             con = sqlite3.connect(db)
@@ -421,7 +419,7 @@ async def account(ctx, *text):
             time.sleep(2.5)
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
             time.sleep(2.5)
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(db)
             # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'C:/Users/유한주/Downloads/Test.db')
             time.sleep(2.5)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
@@ -430,7 +428,7 @@ async def account(ctx, *text):
             driver.close()
 
             # os.remove(r"C:/Users/유한주/Downloads/Test.db")
-            os.remove(r"/app/Test.db")
+            os.remove(db)
 
              
 
@@ -509,7 +507,7 @@ async def account(ctx, *text):
         
     except Exception as ex:
         await ctx.send(ex)
-        
+
         embed = discord.Embed(title = "Failed",
         description = "#가입 부분", color = discord.Color.red()
         )
