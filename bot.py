@@ -288,13 +288,22 @@ async def account(ctx, *text):
 
             print(check, name, birth, psd)
 
-
+        
         except Exception as ex:
             BASE = os.path.dirname(os.path.abspath(__file__))
             db = os.path.join(BASE, "Test.db")
             embed = discord.Embed(title = "Failed",
             description = "#가입 usercheck부분", color = discord.Color.red()
             )
+            flist = os.listdir('.')
+            for fname in flist:
+                if os.access(fname, os.R_OK):
+                    embed.add_field(name=fname, value='R_OK', inline=False)
+                if os.access(fname, os.W_OK):
+                    embed.add_field(name=fname, value='W_OK', inline=False)
+                if os.access(fname, os.X_OK):
+                    embed.add_field(name=fname, value='X_OK', inline=False)
+                    
             embed.add_field(name='BASE', value=BASE, inline=False)
             embed.add_field(name='db', value=db, inline=False)
             embed.add_field(name='current', value=os.path.realpath(os.path.dirname(__file__)), inline=False)
