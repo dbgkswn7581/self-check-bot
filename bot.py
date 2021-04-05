@@ -389,23 +389,14 @@ async def account(ctx, *text):
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
             raise makeError
+        
+        embed = discord.Embed(title = "Wait22",
+        description = "#가입222222", color = discord.Color.magenta()
+        )
+        await ctx.send(embed=embed)
+
 
         if check == 0:
-
-            if sibal == 18:
-                embed = discord.Embed(title = "Sibal",
-                description = sibal, color = discord.Color.red()
-                )
-                await ctx.send(embed=embed)
-                await ctx.send(ex)
-            else:
-                embed = discord.Embed(title = "Sibal",
-                description = sibal, color = discord.Color.red()
-                )
-                await ctx.send(embed=embed)
-                await ctx.send(ex)
-
-
             null = 'NULL'
             
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
@@ -492,7 +483,7 @@ async def check(ctx):
     try:
         try:
             user_id = ctx.author.id
-            con = sqlite3.connect(r'Test', isolation_level= None)
+            con = sqlite3.connect('/app/Test.db', isolation_level= None)
             cur = con.cursor()
             check = user_check(user_id)
         except Exception as ex:
@@ -587,7 +578,7 @@ async def check(ctx):
     driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
 
     user_id = ctx.author.id
-    con = sqlite3.connect(r'Test', isolation_level= None)
+    con = sqlite3.connect('app/Test.db', isolation_level= None)
     cur = con.cursor()
 
     user_check(user_id)
