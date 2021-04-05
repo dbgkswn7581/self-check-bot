@@ -370,6 +370,11 @@ async def account(ctx, *text):
             birth = str(info[1])
             psd = str(info[2])
 
+            embed = discord.Embed(title = "Wait33312312313",
+            description = "#가입222222", color = discord.Color.magenta()
+            )
+            await ctx.send(embed=embed)
+
         except Exception as ex:
             embed = discord.Embed(title = "Failed",
             description = "#가입 usercheck부분\n %d"%check, color = discord.Color.red()
@@ -389,11 +394,12 @@ async def account(ctx, *text):
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
             raise makeError
+        else:
+            embed = discord.Embed(title = "Wait333333333333",
+            description = "#가입222222", color = discord.Color.magenta()
+            )
+            await ctx.send(embed=embed)
         
-        embed = discord.Embed(title = "Wait22",
-        description = "#가입222222", color = discord.Color.magenta()
-        )
-        await ctx.send(embed=embed)
 
 
         if check == 0:
