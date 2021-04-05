@@ -170,6 +170,7 @@ def send_email(driver):
 
 def user_check(id):
     global BASE, db
+
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     chrome_options.add_argument("--headless")
@@ -289,6 +290,8 @@ async def account(ctx, *text):
 
 
         except Exception as ex:
+            BASE = os.path.dirname(os.path.abspath(__file__))
+            db = os.path.join(BASE, "Test.db")
             embed = discord.Embed(title = "Failed",
             description = "#가입 usercheck부분", color = discord.Color.red()
             )
