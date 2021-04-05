@@ -998,4 +998,5 @@ async def check(ctx):
 
 
 client.run(os.environ['token'])
-# client.run("ODE5MjEzODc0NTk4MjQ4NDY4.YEjWXw.3tgy3_OfH6gSTX6_HadtrN83C0Y")
+# client.run("ODE5MjEzODc0NTk4MjQ4NDY4.
+# YEjWXw.3tgy3_OfH6gSTX6_HadtrN83C0Y")
