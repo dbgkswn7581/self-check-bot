@@ -374,7 +374,7 @@ async def account(ctx, *text):
             db = os.path.join(BASE, "Test.db")
             print(BASE, db)
             exist = []
-            os.chmod(db, 777)
+            os.chmod(db, 0o777)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             con = sqlite3.connect(db)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
@@ -477,8 +477,8 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="fileManager"]/ul[2]/li/span/a[1]/span').click() 
             time.sleep(1)
             driver.close()
-
-            os.chmod(r'/app/Test.db', 777)
+            time.sleep(1)
+            os.chmod(r'/app/Test.db', 0o777)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
