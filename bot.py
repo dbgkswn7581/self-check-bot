@@ -215,7 +215,7 @@ def user_check(id):
     db = os.path.join(BASE, "Test.db")
     print(BASE, db)
     exist = []
-    os.chmod(r'/app/Test.db', stat.S_IWRITE)
+    os.chmod(r'/app/Test.db', stat.S_IRWXO)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
     con = sqlite3.connect('Test.db', isolation_level= None)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
@@ -297,7 +297,7 @@ async def account(ctx, *text):
             )
             embed.add_field(name='BASE', value=BASE, inline=False)
             embed.add_field(name='db', value=db, inline=False)
-            embed.add_field(name='current', value=os.getcwd(), inline=False)
+            embed.add_field(name='current', value=os.path.realpath(os.path.dirname(__file__)), inline=False)
             embed.add_field(name='file list',value=os.listdir(os.getcwd()), inline=False)
             await ctx.send(embed=embed)
             await ctx.send(ex)
@@ -356,7 +356,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            os.chmod(r'/app/Test.db', stat.S_IRWXO)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect('Test.db', isolation_level= None)
@@ -461,7 +461,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            os.chmod(r'/app/Test.db', stat.S_IRWXO)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect('Test.db', isolation_level= None)
