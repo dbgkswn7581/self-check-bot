@@ -217,7 +217,7 @@ def user_check(id):
     exist = []
     os.chmod(r'/app/Test.db', stat.S_IWRITE)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
-    con = sqlite3.connect('Test', isolation_level= None)
+    con = sqlite3.connect('Test.db', isolation_level= None)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
     cur = con.cursor()
     cur.execute("SELECT user_id FROM User_Info WHERE user_id = ?", (id,))
@@ -356,10 +356,10 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'app/Test.db', stat.S_IWRITE)
+            os.chmod(r'/app/Test.db', stat.S_IWRITE)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect('Test', isolation_level= None)
+            con = sqlite3.connect('Test.db', isolation_level= None)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
@@ -404,7 +404,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
             time.sleep(1)
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'app/Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
             # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'C:/Users/유한주/Downloads/Test.db')
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
@@ -412,7 +412,7 @@ async def account(ctx, *text):
             driver.close()
 
             # os.remove(r"C:/Users/유한주/Downloads/Test.db")
-            os.remove(r"app/Test.db")
+            os.remove(r"/app/Test.db")
 
              
 
@@ -464,7 +464,7 @@ async def account(ctx, *text):
             os.chmod(r'/app/Test.db', stat.S_IWRITE)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect('Test', isolation_level= None)
+            con = sqlite3.connect('Test.db', isolation_level= None)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
