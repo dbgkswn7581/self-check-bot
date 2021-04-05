@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import os.path
-import os
+import os , stat
 import time
 from bs4 import BeautifulSoup
 import urllib.request
@@ -21,6 +21,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 import sqlite3
 import pyperclip
+
 
 # con = sqlite3.connect("Test", isolation_level= None)
 # cur = con.cursor()
@@ -233,7 +234,7 @@ def send_email(driver):
     return meals
 
 def user_check(id):
-    
+    global sibal
     driver.get('https://mail.daum.net/#MINE') 
     try:
         element = WebDriverWait(driver, 3).until(
@@ -265,10 +266,12 @@ def user_check(id):
     #=====================================================================================================================
     
     try:
+        sibal = 17
         BASE = os.path.dirname(os.path.abspath(__file__))
         db = os.path.join(BASE, "Test.db")
         exist = []
-        con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
+        os.chmod(r'/app/Test.db', stat.S_IWRITE)
+        con = sqlite3.connect('/app/Test.db', isolation_level= None)
         cur = con.cursor()
         cur.execute("SELECT id FROM User_Info WHERE id = ?", (id,))
         rows = cur.fetchall()
@@ -280,6 +283,7 @@ def user_check(id):
             return 1
         con.close()
     except:
+        sibal = 18
         return 0
      
 
@@ -356,8 +360,9 @@ async def account(ctx, *text):
         try:
             BASE = os.path.dirname(os.path.abspath(__file__))
             db = os.path.join(BASE, "Test.db")
+            os.chmod(r'/app/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
+            con = sqlite3.connect('/app/Test.db', isolation_level= None)
             cur = con.cursor()
 
             check = user_check(user_id)
@@ -386,8 +391,23 @@ async def account(ctx, *text):
             raise makeError
 
         if check == 0:
-            
+
+            if sibal == 18:
+                embed = discord.Embed(title = "Sibal",
+                description = sibal, color = discord.Color.red()
+                )
+                await ctx.send(embed=embed)
+                await ctx.send(ex)
+            else:
+                embed = discord.Embed(title = "Sibal",
+                description = sibal, color = discord.Color.red()
+                )
+                await ctx.send(embed=embed)
+                await ctx.send(ex)
+
+
             null = 'NULL'
+            
             cur.execute("INSERT INTO User_Info VALUES(?, ?, ?, ?)", (user_id, name, birth, psd))
             
             driver.get('https://mail.daum.net/') 
