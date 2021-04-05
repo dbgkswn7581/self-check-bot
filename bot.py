@@ -510,7 +510,18 @@ async def account(ctx, *text):
             embed = discord.Embed(title = "Failed",
             description = "#가입 부분", color = discord.Color.red()
             )
-            print(ex)
+            flist = os.listdir(BASE)
+            for fname in flist:
+                if os.access(fname, os.R_OK):
+                    embed.add_field(name=fname, value='R_OK', inline=False)
+                if os.access(fname, os.W_OK):
+                    embed.add_field(name=fname, value='W_OK', inline=False)
+                if os.access(fname, os.X_OK):
+                    embed.add_field(name=fname, value='X_OK', inline=False)
+                if not os.access(fname, os.R_OK):
+                    if not os.access(fname, os.W_OK):
+                        if not os.access(fname, os.X_OK):
+                            embed.add_field(name=fname, value='R_NOT, W_NOT, X_NOT', inline=False)
             await ctx.send(embed=embed)
             await ctx.send(ex)
     # finally:
