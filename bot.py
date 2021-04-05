@@ -295,7 +295,7 @@ async def account(ctx, *text):
             embed = discord.Embed(title = "Failed",
             description = "#가입 usercheck부분", color = discord.Color.red()
             )
-            flist = os.listdir('.')
+            flist = os.listdir(os.getcwd())
             for fname in flist:
                 if os.access(fname, os.R_OK):
                     embed.add_field(name=fname, value='R_OK', inline=False)
@@ -303,7 +303,7 @@ async def account(ctx, *text):
                     embed.add_field(name=fname, value='W_OK', inline=False)
                 if os.access(fname, os.X_OK):
                     embed.add_field(name=fname, value='X_OK', inline=False)
-                    
+
             embed.add_field(name='BASE', value=BASE, inline=False)
             embed.add_field(name='db', value=db, inline=False)
             embed.add_field(name='current', value=os.path.realpath(os.path.dirname(__file__)), inline=False)
