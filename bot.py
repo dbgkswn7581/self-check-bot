@@ -358,8 +358,6 @@ async def account(ctx, *text):
             
 
         try:
-            BASE = os.path.dirname(os.path.abspath(__file__))
-            db = os.path.join(BASE, "Test.db")
             os.chmod(r'/app/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect('/app/Test.db', isolation_level= None)
@@ -468,8 +466,6 @@ async def account(ctx, *text):
             embed = discord.Embed(title = "Failed",
             description = "#가입 부분 \n%d"%check, color = discord.Color.red()
             )
-            embed.add_field(name='1', value=BASE, inline=True)
-            embed.add_field(name='2', value=db, inline=True)
             await ctx.send(embed=embed)
             await ctx.send(ex)
 
