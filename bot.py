@@ -294,6 +294,8 @@ async def account(ctx, *text):
             )
             embed.add_field(name='BASE', value=BASE, inline=False)
             embed.add_field(name='db', value=db, inline=False)
+            embed.add_field(name='current', value=os.getcwd(), inline=False)
+            embed.add_field(name='file list',value=os.listdir(os.getcwd()), inline=False)
             await ctx.send(embed=embed)
             await ctx.send(ex)
         
