@@ -139,7 +139,7 @@ def send_email(driver):
 
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login('dbgkswn7581@gmail.com', 'szxrergdlwfbifbg')
+    s.login('dbgkswn7581@gmail.com', 'sriojdijqkfgubul')
 
     msg = MIMEBase('multipart', 'mixed')
     cont = MIMEText("내용 : 본문내용")
