@@ -129,68 +129,6 @@ def set_today():
     print("today is ", end='')
     print(today)
 
-#자가진단 사이트 접속
-# 변수 : province, sch_level, sch_name, name, yymmdd, psd
-def self_check():
-    url = "https://hcs.eduro.go.kr/#/loginHome"
-
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    
-    driver.get(url)
-
-    driver.find_element_by_xpath('//*[@id="btnConfirm2"]').click() #시작화면에서 시작 버튼 클릭
-
-    time.sleep(1)
-
-
-    # 학교 검색 버튼
-    ele = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr[1]/td/button')
-    # driver.execute_script("arguments[0].removeAttribute('readonly', 'readonly')", ele)
-    # ele.clear()
-    # ele.click()
-    ele.send_keys(Keys.ENTER)
-    time.sleep(0.35)
-    driver.find_element_by_xpath('//*[@id="sidolabel"]').click() # 시/도 선택 버튼
-    driver.find_element_by_xpath('//*[@id="sidolabel"]/option[14]').click() # 전라북도 버튼
-    driver.find_element_by_xpath('//*[@id="crseScCode"]').click() #학교급 선택 버튼
-    driver.find_element_by_xpath('//*[@id="crseScCode"]/option[5]').click() #고등학교 버튼
-    schname = driver.find_element_by_xpath('//*[@id="orgname"]') # 학교 이름 선택 버튼
-    schname.click()
-    schname.send_keys("전라고등학교")
-    schname.send_keys(Keys.RETURN)
-    time.sleep(0.5)
-    driver.find_element_by_xpath('//*[@id="softBoardListLayer"]/div[2]/div[1]/ul/li/a/span').click() #학교 선택
-    driver.find_element_by_xpath('//*[@id="softBoardListLayer"]/div[2]/div[2]/input').click() #학교선택 버튼 클릭
-
-    inputname = driver.find_element_by_xpath('//*[@id="user_name_input"]') #이름 입력 칸 클릭
-    inputname.click()
-    inputname.send_keys("유한주")
-    
-    inputdate = driver.find_element_by_xpath('//*[@id="birthday_input"]') #생년월일 입력 칸 클릭
-    inputdate.click()
-    inputdate.send_keys("031210")
-
-    driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-
-    time.sleep(1)
-
-    inputpsd = driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/input')
-    inputpsd.click()
-    inputpsd.send_keys('6213')
-    
-    driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-
-    time.sleep(2)
-    
-    driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a/em').click()
-
-    time.sleep(2)
-
 def send_email(driver):
     driver.save_screenshot("Screenshot.png")
 
@@ -276,9 +214,9 @@ def user_check(id):
     db = os.path.join(BASE, "Test.db")
     print(BASE, db)
     exist = []
-    os.chmod(r'/app/Test.db', stat.S_IWRITE)
+    os.chmod(r'app/Test.db', stat.S_IWRITE)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
-    con = sqlite3.connect('/app/Test.db', isolation_level= None)
+    con = sqlite3.connect('app/Test.db', isolation_level= None)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
     cur = con.cursor()
     cur.execute("SELECT user_id FROM User_Info WHERE user_id = ?", (id,))
@@ -287,12 +225,12 @@ def user_check(id):
         exist.append(i[0])
     if id not in exist:
         con.close()
-        os.remove(r"/app/Test.db")
+        os.remove(r"app/Test.db")
         # os.remove(r"C:/Users/유한주/Downloads/Test.db")
         return 0
     elif id in exist:
         con.close()
-        os.remove(r"/app/Test.db")
+        os.remove(r"app/Test.db")
         # os.remove(r"C:/Users/유한주/Downloads/Test.db")
         return 1
     
@@ -411,10 +349,10 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'/app/Test.db', stat.S_IWRITE)
+            os.chmod(r'app/Test.db', stat.S_IWRITE)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
-            con = sqlite3.connect('/app/Test.db', isolation_level= None)
+            con = sqlite3.connect('app/Test.db', isolation_level= None)
             # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
             cur = con.cursor()
 
@@ -422,7 +360,13 @@ async def account(ctx, *text):
             time.sleep(1)
             con.close()
 
-            driver = webdriver.Chrome('chromedriver.exe')
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
             driver.get('https://mail.daum.net/') 
             element = WebDriverWait(driver, 6).until(
                 EC.presence_of_element_located((By.XPATH, '//*[@id="daumHead"]/div/div/a[4]/span'))
@@ -453,7 +397,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composerUploader"]/div/dl/dd/div/div[2]/ul/li/a').click()
             time.sleep(1)
-            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'/app/Test.db')
+            driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'app/Test.db')
             # driver.find_element_by_xpath('//*[@id="attachFiles"]').send_keys(r'C:/Users/유한주/Downloads/Test.db')
             time.sleep(1)
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
@@ -461,7 +405,7 @@ async def account(ctx, *text):
             driver.close()
 
             # os.remove(r"C:/Users/유한주/Downloads/Test.db")
-            os.remove(r"/app/Test.db")
+            os.remove(r"app/Test.db")
 
              
 
@@ -987,16 +931,8 @@ async def check(ctx):
             await ctx.send(ex)
             send_email(driver)
         
-        
-
-
-
-
-
-
-        
+   
 
 
 client.run(os.environ['token'])
-# client.run("ODE5MjEzODc0NTk4MjQ4NDY4.
-# YEjWXw.3tgy3_OfH6gSTX6_HadtrN83C0Y")
+# client.run("ODE5MjEzODc0NTk4MjQ4NDY4.YEjWXw.3tgy3_OfH6gSTX6_HadtrN83C0Y")
