@@ -215,7 +215,7 @@ def user_check(id):
     db = os.path.join(BASE, "Test.db")
     print(BASE, db)
     exist = []
-    os.chmod(db, stat.S_IRWXO)
+    os.chmod(db, 777)
     # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
     con = sqlite3.connect(db)
     # con = sqlite3.connect('C:/Users/유한주/Downloads/Test.db', isolation_level= None)
@@ -370,7 +370,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'/app/Test.db', stat.S_IRWXO)
+            os.chmod(r'/app/Test.db', 777)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
@@ -475,7 +475,7 @@ async def account(ctx, *text):
             time.sleep(1)
             driver.close()
 
-            os.chmod(r'/app/Test.db', stat.S_IRWXO)
+            os.chmod(r'/app/Test.db', 777)
             # os.chmod(r'C:/Users/유한주/Downloads/Test.db', stat.S_IWRITE)
             user_id = ctx.author.id
             con = sqlite3.connect(r'/app/Test.db', isolation_level= None)
