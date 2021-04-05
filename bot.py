@@ -382,21 +382,21 @@ async def account(ctx, *text):
 
         
 
-        if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
-            embed = discord.Embed(title = "잘못 입력하였습니다.",
-            description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
-            )
-            embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
-            embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
-            embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
-            embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
-            await ctx.send(embed=embed)
-            raise makeError
-        else:
-            embed = discord.Embed(title = "Wait333333333333",
-            description = "#가입222222", color = discord.Color.magenta()
-            )
-            await ctx.send(embed=embed)
+        # if len(name) != 3 or len(birth) != 6 or len(psd) != 4:
+        #     embed = discord.Embed(title = "잘못 입력하였습니다.",
+        #     description = "다시 입력해주세요.", color = discord.Color.dark_magenta()
+        #     )
+        #     embed.add_field(name="Example", value="#가입 백민혁 030805 1234", inline=False)
+        #     embed.add_field(name="First", value="'백민혁' 부분에는 본인 이름을 입력.", inline=False)
+        #     embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
+        #     embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
+        #     await ctx.send(embed=embed)
+        #     raise makeError
+        # else:
+        #     embed = discord.Embed(title = "Wait333333333333",
+        #     description = "#가입222222", color = discord.Color.magenta()
+        #     )
+        #     await ctx.send(embed=embed)
         
 
 
