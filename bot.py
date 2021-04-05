@@ -427,7 +427,6 @@ async def account(ctx, *text):
             driver.find_element_by_xpath('//*[@id="composer"]/div/div[1]/div[2]/div/div/button[1]').click()
 
             time.sleep(2.5)
-            send_email(driver)
             driver.close()
 
             # os.remove(r"C:/Users/유한주/Downloads/Test.db")
@@ -509,23 +508,25 @@ async def account(ctx, *text):
 
         
     except Exception as ex:
-            embed = discord.Embed(title = "Failed",
-            description = "#가입 부분", color = discord.Color.red()
-            )
-            flist = os.listdir(BASE)
-            for fname in flist:
-                if os.access(fname, os.R_OK):
-                    embed.add_field(name=fname, value='R_OK', inline=False)
-                if os.access(fname, os.W_OK):
-                    embed.add_field(name=fname, value='W_OK', inline=False)
-                if os.access(fname, os.X_OK):
-                    embed.add_field(name=fname, value='X_OK', inline=False)
-                if not os.access(fname, os.R_OK):
-                    if not os.access(fname, os.W_OK):
-                        if not os.access(fname, os.X_OK):
-                            embed.add_field(name=fname, value='R_NOT, W_NOT, X_NOT', inline=False)
-            await ctx.send(embed=embed)
-            await ctx.send(ex)
+        await ctx.send(ex)
+        
+        embed = discord.Embed(title = "Failed",
+        description = "#가입 부분", color = discord.Color.red()
+        )
+        flist = os.listdir(BASE)
+        for fname in flist:
+            if os.access(fname, os.R_OK):
+                embed.add_field(name=fname, value='R_OK', inline=False)
+            if os.access(fname, os.W_OK):
+                embed.add_field(name=fname, value='W_OK', inline=False)
+            if os.access(fname, os.X_OK):
+                embed.add_field(name=fname, value='X_OK', inline=False)
+            if not os.access(fname, os.R_OK):
+                if not os.access(fname, os.W_OK):
+                    if not os.access(fname, os.X_OK):
+                        embed.add_field(name=fname, value='R_NOT, W_NOT, X_NOT', inline=False)
+        await ctx.send(embed=embed)
+            
     # finally:
     #     print("discord")
 
