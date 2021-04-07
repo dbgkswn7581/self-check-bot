@@ -228,7 +228,6 @@ async def account(ctx, *text):
             embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
-            raise makeError
 
 
         embed = discord.Embed(title = "잠시만 기다려주세요...",
@@ -267,7 +266,6 @@ async def account(ctx, *text):
             embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
-            raise makeError
 
         
 
@@ -362,7 +360,6 @@ async def account(ctx, *text):
             embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
-            raise makeError
 
 
         embed = discord.Embed(title = "잠시만 기다려주세요...",
@@ -401,7 +398,6 @@ async def account(ctx, *text):
             embed.add_field(name="Second", value="'030805' 부분에는 본인의 생년월일을 YYMMDD 형식으로 입력.", inline=False)
             embed.add_field(name="Third", value="'1234' 부분에는 본인의 자가진단 사이트 비밀번호를 입력.", inline=False)
             await ctx.send(embed=embed)
-            raise makeError
 
         
 
