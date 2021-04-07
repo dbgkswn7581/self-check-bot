@@ -1303,13 +1303,14 @@ async def check(ctx):
                 desc = "이미 자가진단이 완료되어있습니다."
             else:
                 desc = ex
+                send_email(driver)
 
             embed = discord.Embed(title = "Failed",
             description = desc, color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
-            send_email(driver)
+            # await ctx.send(ex)
+            
 
 @client.command(name="we")
 async def check(ctx):
@@ -1574,13 +1575,14 @@ async def check(ctx):
                 desc = "이미 자가진단이 완료되어있습니다."
             else:
                 desc = ex
+                send_email(driver)
 
             embed = discord.Embed(title = "Failed",
             description = desc, color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
-            send_email(driver)
+            # await ctx.send(ex)
+            
 
         
 @client.command(name="도움말")
