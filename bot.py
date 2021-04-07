@@ -207,7 +207,7 @@ client = commands.Bot(command_prefix='#')
 async def on_ready():
 
     print("==============READY===================")
-    game = discord.Game("자가진단 매크로 테스트")
+    game = discord.Game("'타'가진단")
     await client.change_presence(status = discord.Status.online, activity = game)
 
 @client.command(name="가입")
