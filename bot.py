@@ -1387,7 +1387,7 @@ async def check(ctx):
             description = "# 학교 검색 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             # 시/도 선택 버튼             
@@ -1397,7 +1397,7 @@ async def check(ctx):
             description = "# 시/도 선택 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             # 전라북도 버튼
@@ -1407,7 +1407,7 @@ async def check(ctx):
             description = "# 전라북도 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             #학교급 선택 버튼
@@ -1417,7 +1417,7 @@ async def check(ctx):
             description = "#학교급 선택 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             #고등학교 버튼
@@ -1427,7 +1427,7 @@ async def check(ctx):
             description = "#고등학교 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             # 학교 이름 선택 버튼
@@ -1440,7 +1440,7 @@ async def check(ctx):
             description = "# 학교 이름 선택 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         time.sleep(0.5)
 
@@ -1452,7 +1452,7 @@ async def check(ctx):
             description = "#학교 선택", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             #학교선택 버튼 클릭
@@ -1462,7 +1462,7 @@ async def check(ctx):
             description = "#학교선택 버튼 클릭", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         try:
             #이름 입력 칸 클릭
@@ -1474,7 +1474,7 @@ async def check(ctx):
             description = "#이름 입력 칸 클릭", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         
         try:
@@ -1487,7 +1487,7 @@ async def check(ctx):
             description = "#생년월일 입력 칸 클릭", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
 
         try:
@@ -1498,7 +1498,7 @@ async def check(ctx):
             description = "#생년월일 이후 확인 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
 
         time.sleep(3)
@@ -1515,7 +1515,7 @@ async def check(ctx):
             description = "#비번 입력 칸", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         
         # try:
@@ -1548,7 +1548,7 @@ async def check(ctx):
             description = "#자가진단 버튼", color = discord.Color.red()
             )
             await ctx.send(embed=embed)
-            await ctx.send(ex)
+            # await ctx.send(ex)
 
         time.sleep(2)
 
@@ -1576,7 +1576,7 @@ async def check(ctx):
 
             elif '사용자 비밀번호가 맞지 않습니다.' in str(ex):
                 desc = "자가진단 비밀번호를 잘못 입력하였습니다. \n #탈퇴 후 다시 #가입 해주시길 바랍니다."
-                
+
             else:
                 desc = ex
                 send_email(driver)
