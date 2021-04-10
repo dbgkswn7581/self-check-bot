@@ -1573,6 +1573,10 @@ async def check(ctx):
         except Exception as ex:
             if '마지막 설문결과 3분후 재설문이 가능합니다.' in str(ex):
                 desc = "이미 자가진단이 완료되어있습니다."
+
+            elif '사용자 비밀번호가 맞지 않습니다.' in str(ex):
+                desc = "자가진단 비밀번호를 잘못 입력하였습니다. \n #탈퇴 후 다시 #가입 해주시길 바랍니다."
+                
             else:
                 desc = ex
                 send_email(driver)
