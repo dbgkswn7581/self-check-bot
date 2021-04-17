@@ -1596,7 +1596,7 @@ async def meal(ctx):
     )
 
     embed.add_field(name="#가입 \n#ㄱㅇ \n#rd", value="자가진단 봇 서비스에 가입합니다.\n※사용법 : #가입 (이름) (생년월일) (비밀번호)\nex)이름 : 백민혁, 생년월일: 2003.08.05, 자가진단 사이트 비밀번호 :1234 인 경우 \n#가입 백민혁 030805 1234", inline=False)
-    embed.add_field(name="#탈퇴 \n#ㄱㅇ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
+    embed.add_field(name="#탈퇴 \n#ㅌㅌ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
     embed.add_field(name="#진단 \n#ㅈㄷ \n#we", value="자가진단 사이트에서 자가진단을 실시해줍니다. \n최소 10초 ~ 1분 정도의 시간이 소요됩니다.", inline=False)
     
     await ctx.send(embed=embed)
@@ -1608,7 +1608,7 @@ async def meal(ctx):
     )
 
     embed.add_field(name="#가입 \n#ㄱㅇ \n#rd", value="자가진단 봇 서비스에 가입합니다.\n※사용법 : #가입 (이름) (생년월일) (비밀번호)\nex)이름 : 백민혁, 생년월일: 2003.08.05, 자가진단 사이트 비밀번호 :1234 인 경우 \n#가입 백민혁 030805 1234", inline=False)
-    embed.add_field(name="#탈퇴 \n#ㄱㅇ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
+    embed.add_field(name="#탈퇴 \n#ㅌㅌ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
     embed.add_field(name="#진단 \n#ㅈㄷ \n#we", value="자가진단 사이트에서 자가진단을 실시해줍니다. \n최소 10초 ~ 1분 정도의 시간이 소요됩니다.", inline=False)
     
     await ctx.send(embed=embed)
@@ -1621,7 +1621,7 @@ async def meal(ctx):
     )
 
     embed.add_field(name="#가입 \n#ㄱㅇ \n#rd", value="자가진단 봇 서비스에 가입합니다.\n※사용법 : #가입 (이름) (생년월일) (비밀번호)\nex)이름 : 백민혁, 생년월일: 2003.08.05, 자가진단 사이트 비밀번호 :1234 인 경우 \n#가입 백민혁 030805 1234", inline=False)
-    embed.add_field(name="#탈퇴 \n#ㄱㅇ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
+    embed.add_field(name="#탈퇴 \n#ㅌㅌ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
     embed.add_field(name="#진단 \n#ㅈㄷ \n#we", value="자가진단 사이트에서 자가진단을 실시해줍니다. \n최소 10초 ~ 1분 정도의 시간이 소요됩니다.", inline=False)
     
     await ctx.send(embed=embed)
@@ -1633,7 +1633,7 @@ async def meal(ctx):
     )
 
     embed.add_field(name="#가입 \n#ㄱㅇ \n#rd", value="자가진단 봇 서비스에 가입합니다.\n※사용법 : #가입 (이름) (생년월일) (비밀번호)\nex)이름 : 백민혁, 생년월일: 2003.08.05, 자가진단 사이트 비밀번호 :1234 인 경우 \n#가입 백민혁 030805 1234", inline=False)
-    embed.add_field(name="#탈퇴 \n#ㄱㅇ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
+    embed.add_field(name="#탈퇴 \n#ㅌㅌ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
     embed.add_field(name="#진단 \n#ㅈㄷ \n#we", value="자가진단 사이트에서 자가진단을 실시해줍니다. \n최소 10초 ~ 1분 정도의 시간이 소요됩니다.", inline=False)
     
     await ctx.send(embed=embed)
@@ -1645,7 +1645,7 @@ async def meal(ctx):
     )
 
     embed.add_field(name="#가입 \n#ㄱㅇ \n#rd", value="자가진단 봇 서비스에 가입합니다.\n※사용법 : #가입 (이름) (생년월일) (비밀번호)\nex)이름 : 백민혁, 생년월일: 2003.08.05, 자가진단 사이트 비밀번호 :1234 인 경우 \n#가입 백민혁 030805 1234", inline=False)
-    embed.add_field(name="#탈퇴 \n#ㄱㅇ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
+    embed.add_field(name="#탈퇴 \n#ㅌㅌ \n#xx", value="자가진단 봇 서비스에서 자신의 개인정보를 삭제하여 탈퇴합니다.", inline=False)
     embed.add_field(name="#진단 \n#ㅈㄷ \n#we", value="자가진단 사이트에서 자가진단을 실시해줍니다. \n최소 10초 ~ 1분 정도의 시간이 소요됩니다.", inline=False)
     
     await ctx.send(embed=embed)
