@@ -3,3 +3,4 @@ BeautifulSoup4
 asyncio
 selenium
 psycopg2
+schedule
